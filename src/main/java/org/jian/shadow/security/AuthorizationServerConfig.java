@@ -1,6 +1,7 @@
 package org.jian.shadow.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,6 +17,7 @@ import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.ClientRegistrationException;
 import org.springframework.security.oauth2.provider.client.BaseClientDetails;
+import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
@@ -33,16 +35,18 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     public AuthenticationManager authenticationManager;
     @Autowired
-    public PasswordEncoder passwordEncoder;
+    public JwtTokenStore tokenStore;
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
-        endpoints.authenticationManager(authenticationManager);
+        endpoints.authenticationManager(authenticationManager)//配置密码模式
+                .tokenStore(tokenStore)
+                .accessTokenConverter(jwtAccessTokenConverter());
     }
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.withClientDetails(clientDetailsService());
+        clients.withClientDetails(new MyClientDetailsService());
     }
 
     @Override
@@ -50,35 +54,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         security.checkTokenAccess("isAuthenticated()");
     }
 
-    public ClientDetailsService clientDetailsService() {
-        return new ClientDetailsService() {
-            @Override
-            public ClientDetails loadClientByClientId(String clientId) throws ClientRegistrationException {
-                BaseClientDetails details = new BaseClientDetails();
-                details.setClientId(clientId);
-                details.setAuthorizedGrantTypes(Arrays.asList("authorization_code","password","refresh_token") );
-                details.setScope(Arrays.asList("all"));
-                details.setRegisteredRedirectUri(Collections.singleton("http://localhost:8080"));
-                details.setResourceIds(Arrays.asList("resource"));
-                Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
-                authorities.add(new SimpleGrantedAuthority("ROLE_CLIENT"));
-                details.setAuthorities(authorities);
-                details.setClientSecret(passwordEncoder.encode("oauth2") );
-                return details;
-            }
-        };
-    }
-
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setSigningKey("oauth2");
+        //converter.setSigningKey("oauth2");
         return converter;
     }
 
-    @Bean
-    public TokenStore tokenStore() {
-        TokenStore tokenStore = new JwtTokenStore(jwtAccessTokenConverter());
-        return tokenStore;
-    }
 }

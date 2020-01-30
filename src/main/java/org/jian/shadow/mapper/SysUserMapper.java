@@ -54,6 +54,19 @@ public interface SysUserMapper {
     SysUser findOne(int id);
 
     /**
+     * 根据用户名查询系统用户
+     * @param username
+     * @return
+     */
+    @Select("SELECT id,username,password FROM sys_user WHERE username = #{username}")
+    @Results({
+            @Result(property = "id",  column = "id"),
+            @Result(property = "username",  column = "username"),
+            @Result(property = "password",  column = "password")
+    })
+    SysUser findByUserName(String username);
+
+    /**
      * 插入系统用户
      * @param sysUser
      */
@@ -74,5 +87,20 @@ public interface SysUserMapper {
     @Delete("DELETE FROM sys_user WHERE id =#{id}")
     void delete(int id);
 
+    /**
+     * 根据角色id查询指定权限
+     * @param id
+     * @return
+     */
+    @Select("select name from sys_role_permission join sys_operation on sys_role_permission.permissionid = sys_operation.id where roleid = #{id}")
+    List<String> findAuthorityByRole(int id);
+
+    /**
+     * 根据用户名查询对应角色
+     * @param username
+     * @return
+     */
+    @Select("select roleid from sys_user,sys_user_role  where sys_user.id = sys_user_role.userid and username = #{username}")
+    List<Integer> findRolesByUserName(String username);
 
 }

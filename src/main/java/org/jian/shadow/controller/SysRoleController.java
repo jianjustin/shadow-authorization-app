@@ -1,14 +1,10 @@
 package org.jian.shadow.controller;
 
 import org.jian.shadow.entity.SysRole;
-import org.jian.shadow.entity.SysUser;
 import org.jian.shadow.service.SysRoleService;
-import org.jian.shadow.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.sql.Date;
 import java.util.List;
 
 @RestController

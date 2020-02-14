@@ -38,7 +38,8 @@ public class UserModelDetailsService implements UserDetailsService {
     }
 
     class CustomGrantedAuthority implements GrantedAuthority {
-        private String authority;
+		private static final long serialVersionUID = 1L;
+		private String authority;
         public CustomGrantedAuthority(){}
         public CustomGrantedAuthority(String authority){
             this.authority = authority;

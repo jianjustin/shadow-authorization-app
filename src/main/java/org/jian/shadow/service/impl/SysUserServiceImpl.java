@@ -47,13 +47,13 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public List<SysUserRole> findRolesByUserId(int id){
         QueryWrapper<SysUserRole> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("userId",id);
+        queryWrapper.eq("user_id",id);
         return sysUserRoleMapper.selectList(queryWrapper);
     }
 
     public List<SysResource> findAuthorityByRole(List<Integer> ids){
         QueryWrapper<SysPermission> queryWrapper = new QueryWrapper<>();
-        queryWrapper.in("roleId",ids);
+        queryWrapper.in("role_id",ids);
         List<SysPermission> list = sysPermissionMapper.selectList(queryWrapper);
 
         if(null == list || list.size() == 0)return Collections.emptyList();

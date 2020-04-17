@@ -14,40 +14,30 @@ import java.io.Serializable;
  * @author jian
  * @since 2020-04-17
  */
-public class SysUser extends Model<SysUser> {
+public class SysPermission extends Model<SysPermission> {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 用户ID
+     * 权限ID
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
-     * 用户登陆名
+     * 资源ID
      */
-    private String username;
+    private Integer resourceId;
 
     /**
-     * 用户登陆密码
+     * 角色ID
      */
-    private String password;
+    private Integer roleId;
 
     /**
-     * 所属部门ID
+     * 权限状态
      */
-    private Integer departmentId;
-
-    /**
-     * 职位ID
-     */
-    private Integer postId;
-
-    /**
-     * 最后登陆时间
-     */
-    private LocalDate lastLogin;
+    private Integer permissionStatus;
 
     /**
      * 记录创建时间
@@ -66,40 +56,26 @@ public class SysUser extends Model<SysUser> {
     public void setId(Integer id) {
         this.id = id;
     }
-    public String getUsername() {
-        return username;
+    public Integer getResourceId() {
+        return resourceId;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setResourceId(Integer resourceId) {
+        this.resourceId = resourceId;
     }
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    public Integer getDepartmentId() {
-        return departmentId;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setDepartmentId(Integer departmentId) {
-        this.departmentId = departmentId;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
-    public Integer getPostId() {
-        return postId;
-    }
-
-    public void setPostId(Integer postId) {
-        this.postId = postId;
-    }
-    public LocalDate getLastLogin() {
-        return lastLogin;
+    public Integer getPermissionStatus() {
+        return permissionStatus;
     }
 
-    public void setLastLogin(LocalDate lastLogin) {
-        this.lastLogin = lastLogin;
+    public void setPermissionStatus(Integer permissionStatus) {
+        this.permissionStatus = permissionStatus;
     }
     public LocalDate getCreateDate() {
         return createDate;
@@ -123,13 +99,11 @@ public class SysUser extends Model<SysUser> {
 
     @Override
     public String toString() {
-        return "SysUser{" +
+        return "SysPermission{" +
             "id=" + id +
-            ", username=" + username +
-            ", password=" + password +
-            ", departmentId=" + departmentId +
-            ", postId=" + postId +
-            ", lastLogin=" + lastLogin +
+            ", resourceId=" + resourceId +
+            ", roleId=" + roleId +
+            ", permissionStatus=" + permissionStatus +
             ", createDate=" + createDate +
             ", orderBy=" + orderBy +
         "}";

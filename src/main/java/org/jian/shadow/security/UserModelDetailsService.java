@@ -1,7 +1,11 @@
 package org.jian.shadow.security;
 
+import org.jian.shadow.entity.SysResource;
 import org.jian.shadow.entity.SysUser;
+import org.jian.shadow.entity.SysUserRole;
 import org.jian.shadow.mapper.SysUserMapper;
+import org.jian.shadow.service.ISysUserRoleService;
+import org.jian.shadow.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,37 +20,36 @@ import java.util.stream.Collectors;
 @Component("userDetailsService")
 public class UserModelDetailsService implements UserDetailsService {
     @Autowired
-    public SysUserMapper sysUserMapper;
+    public ISysUserService sysUserService;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        SysUser user = sysUserMapper.findByUserName(s);//查询系统用户
+        SysUser user = sysUserService.findByUserName(s);//查询系统用户
         if (null == user)throw new UsernameNotFoundException("用户账户【"+s+"】查询失败");
 
         //查询系统用户角色
-        List<Integer> roles = sysUserMapper.findRolesByUserName(s);
-        if (null == roles || roles.size() == 0) return new org.springframework.security.core.userdetails.User(user.username,user.password,null);
+        List<SysUserRole> roles = sysUserService.findRolesByUserId(user.getId());
+        if (null == roles || roles.size() == 0) return new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword(),null);
 
         //查询系统用户权限
-        List<String> authorities = new ArrayList<>();
-        for (int i = 0; i < roles.size(); i++)
-            authorities.addAll(sysUserMapper.findAuthorityByRole(roles.get(i)));
+        List<Integer> ids = roles.stream().map(SysUserRole::getRoleId).collect(Collectors.toList());
+        List<SysResource> authorities = sysUserService.findAuthorityByRole(ids);
 
-        return new org.springframework.security.core.userdetails.User(user.username,user.password,authorities.stream()
+        return new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword(),authorities.stream()
                 .map(authority -> new CustomGrantedAuthority(authority))
                 .collect(Collectors.toList()));
     }
 
     class CustomGrantedAuthority implements GrantedAuthority {
 		private static final long serialVersionUID = 1L;
-		private String authority;
+		private SysResource authority;
         public CustomGrantedAuthority(){}
-        public CustomGrantedAuthority(String authority){
+        public CustomGrantedAuthority(SysResource authority){
             this.authority = authority;
         }
         @Override
         public String getAuthority() {
-            return authority;
+            return authority.getResourceOperation();
         }
     }
 

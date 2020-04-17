@@ -14,7 +14,7 @@ import org.springframework.stereotype.Controller;
  * @since 2020-04-17
  */
 @Controller
-@RequestMapping("/sysUser")
-public class SysUserController {
+@RequestMapping("/sysPermission")
+public class SysPermissionController {
 
 }

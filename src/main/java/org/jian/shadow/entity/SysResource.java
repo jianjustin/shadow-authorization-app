@@ -14,40 +14,35 @@ import java.io.Serializable;
  * @author jian
  * @since 2020-04-17
  */
-public class SysUser extends Model<SysUser> {
+public class SysResource extends Model<SysResource> {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 用户ID
+     * 角色ID
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
-     * 用户登陆名
+     * 资源名称
      */
-    private String username;
+    private String resourceName;
 
     /**
-     * 用户登陆密码
+     * 资源路径
      */
-    private String password;
+    private String resourceUrl;
 
     /**
-     * 所属部门ID
+     * 资源操作
      */
-    private Integer departmentId;
+    private String resourceOperation;
 
     /**
-     * 职位ID
+     * 资源类型
      */
-    private Integer postId;
-
-    /**
-     * 最后登陆时间
-     */
-    private LocalDate lastLogin;
+    private Integer resourceType;
 
     /**
      * 记录创建时间
@@ -66,40 +61,33 @@ public class SysUser extends Model<SysUser> {
     public void setId(Integer id) {
         this.id = id;
     }
-    public String getUsername() {
-        return username;
+    public String getResourceName() {
+        return resourceName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setResourceName(String resourceName) {
+        this.resourceName = resourceName;
     }
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    public Integer getDepartmentId() {
-        return departmentId;
+    public String getResourceUrl() {
+        return resourceUrl;
     }
 
-    public void setDepartmentId(Integer departmentId) {
-        this.departmentId = departmentId;
+    public void setResourceUrl(String resourceUrl) {
+        this.resourceUrl = resourceUrl;
     }
-    public Integer getPostId() {
-        return postId;
-    }
-
-    public void setPostId(Integer postId) {
-        this.postId = postId;
-    }
-    public LocalDate getLastLogin() {
-        return lastLogin;
+    public String getResourceOperation() {
+        return resourceOperation;
     }
 
-    public void setLastLogin(LocalDate lastLogin) {
-        this.lastLogin = lastLogin;
+    public void setResourceOperation(String resourceOperation) {
+        this.resourceOperation = resourceOperation;
+    }
+    public Integer getResourceType() {
+        return resourceType;
+    }
+
+    public void setResourceType(Integer resourceType) {
+        this.resourceType = resourceType;
     }
     public LocalDate getCreateDate() {
         return createDate;
@@ -123,13 +111,12 @@ public class SysUser extends Model<SysUser> {
 
     @Override
     public String toString() {
-        return "SysUser{" +
+        return "SysResource{" +
             "id=" + id +
-            ", username=" + username +
-            ", password=" + password +
-            ", departmentId=" + departmentId +
-            ", postId=" + postId +
-            ", lastLogin=" + lastLogin +
+            ", resourceName=" + resourceName +
+            ", resourceUrl=" + resourceUrl +
+            ", resourceOperation=" + resourceOperation +
+            ", resourceType=" + resourceType +
             ", createDate=" + createDate +
             ", orderBy=" + orderBy +
         "}";

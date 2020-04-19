@@ -1,18 +1,40 @@
 package org.jian.shadow.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.jian.shadow.entity.SysRole;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.*;
+import org.jian.shadow.domain.SysRole;
+import org.springframework.stereotype.Component;
+import java.util.List;
 
-/**
- * <p>
- *  Mapper 接口
- * </p>
- *
- * @author jian
- * @since 2020-04-17
- */
 @Mapper
-public interface SysRoleMapper extends BaseMapper<SysRole> {
+@Component(value = "sysRoleMapper")
+public interface SysRoleMapper {
 
+    @Select("SELECT * FROM sys_role")
+    @Results({
+    	@Result(property = "id",  column = "id"),
+    	@Result(property = "roleName",  column = "role_name"),
+    	@Result(property = "roleType",  column = "role_type"),
+    	@Result(property = "createDate",  column = "create_date"),
+    	@Result(property = "orderBy",  column = "order_by")
+    })
+    List<SysRole> findAll();
+
+    @Select("SELECT id,role_name,role_type,create_date,order_by FROM sys_role WHERE id = #{id}")
+    @Results({
+    	@Result(property = "id",  column = "id"),
+    	@Result(property = "roleName",  column = "role_name"),
+    	@Result(property = "roleType",  column = "role_type"),
+    	@Result(property = "createDate",  column = "create_date"),
+    	@Result(property = "orderBy",  column = "order_by")
+    })
+    SysRole findOne(int id);
+
+    @Insert("INSERT INTO sys_role(id,role_name,role_type,create_date,order_by) VALUES(#{id},#{roleName},#{roleType},#{createDate},#{orderBy})")
+    void insert(SysRole sysRole);
+
+    @Update("UPDATE sys_role SET id=#{id},role_name=#{roleName},role_type=#{roleType},create_date=#{createDate},order_by=#{orderBy})")
+    void update(SysRole sysRole);
+
+    @Delete("DELETE FROM sys_role WHERE id = #{id}")
+    void delete(int id);
 }

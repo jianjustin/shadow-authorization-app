@@ -1,6 +1,6 @@
 package org.jian.shadow.controller;
 
-import org.jian.shadow.entity.SysUser;
+import org.jian.shadow.domain.SysUser;
 import org.jian.shadow.security.JWTFilter;
 import org.jian.shadow.security.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,20 +1,44 @@
 package org.jian.shadow.controller;
 
+import org.jian.shadow.domain.SysUser;
+import org.jian.shadow.service.SysUserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.stereotype.Controller;
-
-/**
- * <p>
- *  前端控制器
- * </p>
- *
- * @author jian
- * @since 2020-04-17
- */
-@Controller
-@RequestMapping("/sysUser")
+@RestController
 public class SysUserController {
+    @Autowired
+    public SysUserService sysUserService;
 
+    @GetMapping("/sys/user")
+    @PreAuthorize("hasAuthority('sys.user.findAll')")
+    public List<SysUser> findAll(){
+        return sysUserService.findAll();
+    }
+
+    @GetMapping("/sys/user/{id}")
+    @PreAuthorize("hasAuthority('sys.user.findOne')")
+    public SysUser findOne(@PathVariable("id") int id){
+        return sysUserService.findOne(id);
+    }
+
+    @PostMapping("/sys/user")
+    @PreAuthorize("hasAuthority('sys.user.insert')")
+    public void insert(@RequestBody SysUser sysUser){
+        sysUserService.insert(sysUser);
+    }
+
+    @PutMapping("/sys/user")
+    @PreAuthorize("hasAuthority('sys.user.update')")
+    public void update(@RequestBody SysUser sysUser){
+        sysUserService.update(sysUser);
+    }
+
+    @DeleteMapping("/sys/user/{id}")
+    @PreAuthorize("hasAuthority('sys.user.delete')")
+    public void delete(@PathVariable("id") int id){
+        sysUserService.delete(id);
+    }
 }

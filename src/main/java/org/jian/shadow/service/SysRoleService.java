@@ -1,5 +1,6 @@
 package org.jian.shadow.service;
 
+import org.jian.shadow.common.PageInfo;
 import org.jian.shadow.domain.SysRole;
 import org.jian.shadow.mapper.SysRoleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,10 @@ public class SysRoleService {
 
     public List<SysRole> findAll(){
         return sysRoleMapper.findAll();
+    }
+    
+    public List<SysRole> findAllByPage(PageInfo pageInfo){
+        return sysRoleMapper.findAllByPage(pageInfo.getOffset(), pageInfo.getLimit());
     }
 
     public SysRole findOne(int id){

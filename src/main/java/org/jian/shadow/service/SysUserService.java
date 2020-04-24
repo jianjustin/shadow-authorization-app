@@ -1,5 +1,6 @@
 package org.jian.shadow.service;
 
+import org.jian.shadow.common.PageInfo;
 import org.jian.shadow.domain.SysResource;
 import org.jian.shadow.domain.SysUser;
 import org.jian.shadow.mapper.SysUserMapper;
@@ -15,6 +16,10 @@ public class SysUserService {
 
     public List<SysUser> findAll(){
         return sysUserMapper.findAll();
+    }
+    
+    public List<SysUser> findAllByPage(PageInfo pageInfo){
+        return sysUserMapper.findAllByPage(pageInfo.getOffset(), pageInfo.getLimit());
     }
 
     public SysUser findOne(int id){

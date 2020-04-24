@@ -1,10 +1,17 @@
 package org.jian.shadow.mapper;
 
-import org.apache.ibatis.annotations.*;
+import java.util.List;
+
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.jian.shadow.domain.SysResource;
 import org.jian.shadow.domain.SysUser;
 import org.springframework.stereotype.Component;
-import java.util.List;
 
 @Mapper
 @Component(value = "sysUserMapper")
@@ -47,6 +54,22 @@ public interface SysUserMapper {
     	@Result(property = "orderBy",  column = "order_by")
     })
     List<SysUser> findAll();
+    
+    @Select("SELECT * FROM sys_user limit #{offset}, #{limit}")
+    @Results({
+    	@Result(property = "id",  column = "id"),
+    	@Result(property = "username",  column = "username"),
+    	@Result(property = "password",  column = "password"),
+    	@Result(property = "departmentId",  column = "department_id"),
+    	@Result(property = "postId",  column = "post_id"),
+    	@Result(property = "lastLogin",  column = "last_login"),
+    	@Result(property = "createDate",  column = "create_date"),
+    	@Result(property = "orderBy",  column = "order_by")
+    })
+    List<SysUser> findAllByPage(int offset, int limit);
+    
+    @Select("SELECT count(*) FROM sys_user")
+    int findAllCount();
 
     @Select("SELECT id,username,password,department_id,post_id,last_login,create_date,order_by FROM sys_user WHERE id = #{id}")
     @Results({

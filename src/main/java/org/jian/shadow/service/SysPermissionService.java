@@ -1,11 +1,12 @@
 package org.jian.shadow.service;
 
+import java.util.List;
+
+import org.jian.shadow.common.PageInfo;
 import org.jian.shadow.domain.SysPermission;
 import org.jian.shadow.mapper.SysPermissionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class SysPermissionService {
@@ -14,6 +15,10 @@ public class SysPermissionService {
 
     public List<SysPermission> findAll(){
         return sysPermissionMapper.findAll();
+    }
+    
+    public List<SysPermission> findAllByPage(PageInfo pageInfo){
+        return sysPermissionMapper.findAllByPage(pageInfo.getOffset(), pageInfo.getLimit());
     }
 
     public SysPermission findOne(int id){

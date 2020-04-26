@@ -1,6 +1,7 @@
 package org.jian.shadow.controller;
 
 import org.jian.shadow.common.PageInfo;
+import org.jian.shadow.common.log.ShadowLog;
 import org.jian.shadow.domain.SysRole;
 import org.jian.shadow.service.SysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ public class SysRoleController {
     
     @PostMapping("/sys/role/findAllByPage")
     @PreAuthorize("hasAuthority('sys.role.findAll')")
+    @ShadowLog(description = "分页查询所有角色")
     public List<SysRole> findAllByPage(@RequestBody PageInfo pageInfo){
         return sysRoleService.findAllByPage(pageInfo);
     }

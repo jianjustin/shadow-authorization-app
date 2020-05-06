@@ -2,10 +2,12 @@ package org.jian.shadow.controller;
 
 import java.util.List;
 
-import org.jian.shadow.common.PageInfo;
 import org.jian.shadow.domain.SysUser;
 import org.jian.shadow.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,10 +28,11 @@ public class SysUserController {
         return sysUserService.findAll();
     }
     
-    @PostMapping("/sys/user/findAllByPage")
+    @GetMapping("/sys/user/findAllByPage")
     @PreAuthorize("hasAuthority('sys.user.findAll')")
-    public List<SysUser> findAllByPage(@RequestBody PageInfo pageInfo){
-        return sysUserService.findAllByPage(pageInfo);
+    public List<SysUser> findAllByPage(
+    		@PageableDefault(page = 0, size = 10, direction = Sort.Direction.DESC) Pageable pageable){
+        return sysUserService.findAllByPage(pageable);
     }
 
     @GetMapping("/sys/user/{id}")

@@ -1,48 +1,48 @@
 package org.jian.shadow.service;
 
-import org.jian.shadow.common.PageInfo;
-import org.jian.shadow.domain.SysResource;
-import org.jian.shadow.domain.SysUser;
-import org.jian.shadow.mapper.SysUserMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
+import java.util.ArrayList;
 import java.util.List;
+
+import org.jian.shadow.domain.SysUser;
+import org.jian.shadow.repository.SysUserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 @Service
 public class SysUserService {
     @Autowired
-    public SysUserMapper sysUserMapper;
+    public SysUserRepository sysUserRepository;
 
     public List<SysUser> findAll(){
-        return sysUserMapper.findAll();
+    	Iterable<SysUser> iterable = sysUserRepository.findAll();
+    	List<SysUser> result = new ArrayList<>();
+        iterable.forEach(result::add);
+        return result;
     }
     
-    public List<SysUser> findAllByPage(PageInfo pageInfo){
-        return sysUserMapper.findAllByPage(pageInfo.getOffset(), pageInfo.getLimit());
+    public List<SysUser> findAllByPage(Pageable pageable){
+        return sysUserRepository.findAll(pageable).getContent();
     }
 
     public SysUser findOne(int id){
-        return sysUserMapper.findOne(id);
+        return sysUserRepository.findById(id).get();
     }
     
     public SysUser findByUserName(String username){
-        return sysUserMapper.findByUserName(username);
+        return sysUserRepository.findByUsername(username);
     }
 
     public void insert(SysUser sysUser){
-        sysUserMapper.insert(sysUser);
+    	sysUserRepository.save(sysUser);
     }
 
     public void update(SysUser sysUser){
-        sysUserMapper.update(sysUser);
+    	sysUserRepository.save(sysUser);
     }
 
     public void delete(int id){
-        sysUserMapper.delete(id);
+    	sysUserRepository.deleteById(id);
     }
 
-	public List<SysResource> findAuthorityByUser(int id) {
-		return sysUserMapper.findAuthorityByUser(id);
-	}
 }

@@ -1,33 +1,79 @@
 package org.jian.shadow.domain;
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
 * 描述：sys_user模型
 * @author tools
 */
+@Table(name = "sys_user")
+@Entity
 public class SysUser{
 	
-    //用户ID
-    private int id;
-    //用户登陆名
+    /*
+     * 用户ID
+     */
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "user_id")
+    private int userId;
+    /*
+     * 用户登陆名
+     */
+	@Column(name = "username")
     private String username;
-    //用户登陆密码
+    /*
+     * 用户登陆密码
+     */
+	@Column(name = "password")
     private String password;
-    //所属部门ID
+    /*
+     * 所属部门ID
+     */
+	@Column(name = "department_id")
     private int departmentId;
-    //职位ID
+    /*
+     * 职位ID
+     */
+	@Column(name = "post_id")
     private int postId;
-    //最后登陆时间
+    /*
+     * 最后登陆时间
+     */
+	@Column(name = "last_login")
     private Date lastLogin;
-    //记录创建时间
-    private Date createDate;
-    //排序号
+    /*
+     * 记录创建时间
+     */
+	@Column(name = "create_date")
+    private Timestamp createDate;
+    /*
+     * 排序号
+     */
+	@Column(name = "order_by")
     private int orderBy;
-	public int getId() {
-		return id;
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = SysUserRole.class)
+	@JoinColumn(name = "user_id", referencedColumnName = "user_id")
+	private Set<SysUserRole> roles;
+	
+	public int getUserId() {
+		return userId;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 	public String getUsername() {
 		return username;
@@ -59,10 +105,10 @@ public class SysUser{
 	public void setLastLogin(Date lastLogin) {
 		this.lastLogin = lastLogin;
 	}
-	public Date getCreateDate() {
+	public Timestamp getCreateDate() {
 		return createDate;
 	}
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(Timestamp createDate) {
 		this.createDate = createDate;
 	}
 	public int getOrderBy() {
@@ -71,6 +117,10 @@ public class SysUser{
 	public void setOrderBy(int orderBy) {
 		this.orderBy = orderBy;
 	}
-
-    
+	public Set<SysUserRole> getRoles() {
+		return roles;
+	}
+	public void setRoles(Set<SysUserRole> roles) {
+		this.roles = roles;
+	}
 }

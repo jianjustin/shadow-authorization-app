@@ -2,10 +2,12 @@ package org.jian.shadow.controller;
 
 import java.util.List;
 
-import org.jian.shadow.common.PageInfo;
 import org.jian.shadow.domain.SysPermission;
 import org.jian.shadow.service.SysPermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,10 +28,11 @@ public class SysPermissionController {
         return sysPermissionService.findAll();
     }
     
-    @PostMapping("/sys/permission/findAllByPage")
+    @GetMapping("/sys/permission/findAllByPage")
     @PreAuthorize("hasAuthority('sys.permission.findAll')")
-    public List<SysPermission> findAllByPage(@RequestBody PageInfo pageInfo){
-        return sysPermissionService.findAllByPage(pageInfo);
+    public List<SysPermission> findAllByPage(
+    		@PageableDefault(page = 0, size = 10, direction = Sort.Direction.DESC) Pageable pageable){
+        return sysPermissionService.findAllByPage(pageable);
     }
 
     @GetMapping("/sys/permission/{id}")

@@ -1,39 +1,43 @@
 package org.jian.shadow.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import org.jian.shadow.common.PageInfo;
 import org.jian.shadow.domain.SysResource;
-import org.jian.shadow.mapper.SysResourceMapper;
+import org.jian.shadow.repository.SysResourceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
 public class SysResourceService {
-    @Autowired
-    public SysResourceMapper sysResourceMapper;
+	@Autowired
+    public SysResourceRepository sysResourceRepository;
 
     public List<SysResource> findAll(){
-        return sysResourceMapper.findAll();
-    }
-
-    public List<SysResource> findAllByPage(PageInfo pageInfo){
-        return sysResourceMapper.findAllByPage(pageInfo.getOffset(), pageInfo.getLimit());
+    	Iterable<SysResource> iterable = sysResourceRepository.findAll();
+    	List<SysResource> result = new ArrayList<>();
+        iterable.forEach(result::add);
+        return result;
     }
     
+    public List<SysResource> findAllByPage(Pageable pageable){
+        return sysResourceRepository.findAll(pageable).getContent();
+    }
+
     public SysResource findOne(int id){
-        return sysResourceMapper.findOne(id);
+        return sysResourceRepository.findById(id).get();
     }
 
     public void insert(SysResource sysResource){
-        sysResourceMapper.insert(sysResource);
+    	sysResourceRepository.save(sysResource);
     }
 
     public void update(SysResource sysResource){
-        sysResourceMapper.update(sysResource);
+    	sysResourceRepository.save(sysResource);
     }
 
     public void delete(int id){
-        sysResourceMapper.delete(id);
+    	sysResourceRepository.deleteById(id);
     }
 }

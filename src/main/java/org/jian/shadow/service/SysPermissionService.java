@@ -1,39 +1,43 @@
 package org.jian.shadow.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import org.jian.shadow.common.PageInfo;
 import org.jian.shadow.domain.SysPermission;
-import org.jian.shadow.mapper.SysPermissionMapper;
+import org.jian.shadow.repository.SysPermissionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
 public class SysPermissionService {
-    @Autowired
-    public SysPermissionMapper sysPermissionMapper;
+	@Autowired
+    public SysPermissionRepository sysPermissionRepository;
 
     public List<SysPermission> findAll(){
-        return sysPermissionMapper.findAll();
+    	Iterable<SysPermission> iterable = sysPermissionRepository.findAll();
+    	List<SysPermission> result = new ArrayList<>();
+        iterable.forEach(result::add);
+        return result;
     }
     
-    public List<SysPermission> findAllByPage(PageInfo pageInfo){
-        return sysPermissionMapper.findAllByPage(pageInfo.getOffset(), pageInfo.getLimit());
+    public List<SysPermission> findAllByPage(Pageable pageable){
+        return sysPermissionRepository.findAll(pageable).getContent();
     }
 
     public SysPermission findOne(int id){
-        return sysPermissionMapper.findOne(id);
+        return sysPermissionRepository.findById(id).get();
     }
 
     public void insert(SysPermission sysPermission){
-        sysPermissionMapper.insert(sysPermission);
+    	sysPermissionRepository.save(sysPermission);
     }
 
     public void update(SysPermission sysPermission){
-        sysPermissionMapper.update(sysPermission);
+    	sysPermissionRepository.save(sysPermission);
     }
 
     public void delete(int id){
-        sysPermissionMapper.delete(id);
+    	sysPermissionRepository.deleteById(id);
     }
 }

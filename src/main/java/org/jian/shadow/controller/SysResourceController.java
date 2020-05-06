@@ -2,10 +2,12 @@ package org.jian.shadow.controller;
 
 import java.util.List;
 
-import org.jian.shadow.common.PageInfo;
 import org.jian.shadow.domain.SysResource;
 import org.jian.shadow.service.SysResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,10 +28,11 @@ public class SysResourceController {
         return sysResourceService.findAll();
     }
 
-    @PostMapping("/sys/resource/findAllByPage")
+    @GetMapping("/sys/resource/findAllByPage")
     @PreAuthorize("hasAuthority('sys.resource.findAll')")
-    public List<SysResource> findAllByPage(@RequestBody PageInfo pageInfo){
-        return sysResourceService.findAllByPage(pageInfo);
+    public List<SysResource> findAllByPage(
+    		@PageableDefault(page = 0, size = 10, direction = Sort.Direction.DESC) Pageable pageable){
+        return sysResourceService.findAllByPage(pageable);
     }
     
     @GetMapping("/sys/resource/{id}")

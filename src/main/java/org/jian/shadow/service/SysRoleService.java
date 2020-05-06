@@ -1,39 +1,43 @@
 package org.jian.shadow.service;
 
-import org.jian.shadow.common.PageInfo;
-import org.jian.shadow.domain.SysRole;
-import org.jian.shadow.mapper.SysRoleMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
+import java.util.ArrayList;
 import java.util.List;
+
+import org.jian.shadow.domain.SysRole;
+import org.jian.shadow.repository.SysRoleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 @Service
 public class SysRoleService {
-    @Autowired
-    public SysRoleMapper sysRoleMapper;
+	@Autowired
+    public SysRoleRepository sysRoleRepository;
 
     public List<SysRole> findAll(){
-        return sysRoleMapper.findAll();
+    	Iterable<SysRole> iterable = sysRoleRepository.findAll();
+    	List<SysRole> result = new ArrayList<>();
+        iterable.forEach(result::add);
+        return result;
     }
     
-    public List<SysRole> findAllByPage(PageInfo pageInfo){
-        return sysRoleMapper.findAllByPage(pageInfo.getOffset(), pageInfo.getLimit());
+    public List<SysRole> findAllByPage(Pageable pageable){
+        return sysRoleRepository.findAll(pageable).getContent();
     }
 
     public SysRole findOne(int id){
-        return sysRoleMapper.findOne(id);
+        return sysRoleRepository.findById(id).get();
     }
 
     public void insert(SysRole sysRole){
-        sysRoleMapper.insert(sysRole);
+    	sysRoleRepository.save(sysRole);
     }
 
     public void update(SysRole sysRole){
-        sysRoleMapper.update(sysRole);
+    	sysRoleRepository.save(sysRole);
     }
 
     public void delete(int id){
-        sysRoleMapper.delete(id);
+    	sysRoleRepository.deleteById(id);
     }
 }

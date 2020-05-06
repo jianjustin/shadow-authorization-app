@@ -25,17 +25,14 @@ public class TokenProvider implements InitializingBean {
     private static final String AUTHORITIES_KEY = "auth";
     private final String base64Secret;
     private final long tokenValidityInMilliseconds;
-    private final long tokenValidityInMillisecondsForRememberMe;
 
     private Key key;
 
     public TokenProvider(
             @Value("${jwt.base64-secret}") String base64Secret,
-            @Value("${jwt.token-validity-in-seconds}") long tokenValidityInSeconds,
-            @Value("${jwt.token-validity-in-seconds-for-remember-me}") long tokenValidityInSecondsForRememberMe) {
+            @Value("${jwt.token-validity-in-seconds}") long tokenValidityInSeconds) {
         this.base64Secret = base64Secret;
         this.tokenValidityInMilliseconds = tokenValidityInSeconds * 1000;
-        this.tokenValidityInMillisecondsForRememberMe = tokenValidityInSecondsForRememberMe * 1000;
     }
 
     @Override

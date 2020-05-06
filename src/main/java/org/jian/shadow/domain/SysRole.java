@@ -1,5 +1,5 @@
 package org.jian.shadow.domain;
-import java.time.LocalDate;
+
 import java.util.Date;
 
 /**
@@ -15,7 +15,7 @@ public class SysRole{
     //角色类型
     private int roleType;
     //记录创建时间
-    private LocalDate createDate;
+    private Date createDate;
     //排序号
     private int orderBy;
 	public int getId() {
@@ -36,10 +36,10 @@ public class SysRole{
 	public void setRoleType(int roleType) {
 		this.roleType = roleType;
 	}
-	public LocalDate getCreateDate() {
+	public Date getCreateDate() {
 		return createDate;
 	}
-	public void setCreateDate(LocalDate createDate) {
+	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
 	public int getOrderBy() {

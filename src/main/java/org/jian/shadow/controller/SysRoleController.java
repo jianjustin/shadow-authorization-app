@@ -1,15 +1,21 @@
 package org.jian.shadow.controller;
 
+import java.util.Date;
+import java.util.List;
+
 import org.jian.shadow.common.PageInfo;
 import org.jian.shadow.common.log.ShadowLog;
 import org.jian.shadow.domain.SysRole;
 import org.jian.shadow.service.SysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
-import java.util.List;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class SysRoleController {
@@ -38,7 +44,7 @@ public class SysRoleController {
     @PostMapping("/sys/role")
     @PreAuthorize("hasAuthority('sys.role.insert')")
     public void insert(@RequestBody SysRole sysRole){
-    	sysRole.setCreateDate(LocalDate.now());
+    	sysRole.setCreateDate(new Date());
         sysRoleService.insert(sysRole);
     }
 

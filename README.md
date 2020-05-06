@@ -37,8 +37,7 @@
 **如何启动后台应用**
 
 * 拉取项目`git clone git@github.com:jianjustin/shadow-authorization-server.git`
-* 初始化表结构（根据该目录下的`initAuthData.sql`初始化表结构和表数据）
-* 修改数据库连接信息并启动应用
+* 直接启动SpringBoot应用
 * 可以通过Postman工具测试接口
 
 **如何启动客户端**

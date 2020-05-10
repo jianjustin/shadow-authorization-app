@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
 * 描述：sys_permission模型
 * @author tools
@@ -59,6 +61,7 @@ public class SysPermission{
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = SysRole.class)
 	@JoinColumn(name = "role_id", referencedColumnName = "role_id")
+	@JsonIgnore
 	private SysRole role;
 	
 	public int getPermissionId() {

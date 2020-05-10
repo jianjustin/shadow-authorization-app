@@ -1,6 +1,8 @@
 package org.jian.shadow.security;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.jian.shadow.domain.SysPermission;
@@ -29,8 +31,10 @@ public class UserModelDetailsService implements UserDetailsService {
         if (null == user)throw new UsernameNotFoundException("用户账户【"+s+"】查询失败");
         
         List<Integer> roleIds = user.getRoles().stream().map(SysUserRole::getRoleId).collect(Collectors.toList());
-        List<SysPermission> sysPermissions = (List<SysPermission>) sysPermissionRepository.findAllById(roleIds);
-
+		Set<SysPermission> sysPermissions = new HashSet<>();
+		for (int i = 0; i < roleIds.size(); i++) {
+			sysPermissions.addAll(sysPermissionRepository.findAllByRoleId(roleIds.get(i)));
+		}
         return new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword(),sysPermissions.stream()
                 .map(sysPermission -> new CustomGrantedAuthority(sysPermission.getResource()))
                 .collect(Collectors.toList()));

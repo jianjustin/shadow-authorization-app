@@ -17,8 +17,7 @@ import org.springframework.web.filter.CorsFilter;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
-    public TokenProvider tokenProvider;
+	public final static String signkey = "ZmQ0ZGI5NjQ0MDQwY2I4MjMxY2Y3ZmI3MjdhN2ZmMjNhODViOTg1ZGE0NTBjMGM4NDA5NzYxMjdjOWMwYWRmZTBlZjlhNGY3ZTg4Y2U3YTE1ODVkZDU5Y2Y3OGYwZWE1NzUzNWQ2YjFjZDc0NGMxZWU2MmQ3MjY1NzJmNTE0MzI=";
     @Autowired
     public CorsFilter corsFilter;
 
@@ -38,24 +37,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable()
-                .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling()
                 .and()
                 .headers()
                 .frameOptions()
                 .sameOrigin()
                 .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
                 .authorizeRequests()
-                .antMatchers("/api/auth/login").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .apply(securityConfigurerAdapter());
-    }
-
-    private JWTConfigurer securityConfigurerAdapter() {
-        return new JWTConfigurer(tokenProvider);
+    			.anyRequest().authenticated()
+    			.and()
+    			.formLogin()
+    			.and()
+    			.sessionManagement()
+    			.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+    			.and()
+    			.addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
+    			.addFilter(new LoginAuthenticationFilter(authenticationManager()))
+    			.addFilter(new ActionAuthenticationFilter(authenticationManager()));
     }
 }

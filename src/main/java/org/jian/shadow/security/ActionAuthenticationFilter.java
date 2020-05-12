@@ -31,7 +31,7 @@ public class ActionAuthenticationFilter extends BasicAuthenticationFilter{
 	
 	@Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        String token = request.getHeader("token");
+        String token = request.getHeader("Authorization");
 
         //判断是否有token
         if (token == null || !token.startsWith("Bearer ")) {

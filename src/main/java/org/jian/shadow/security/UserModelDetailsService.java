@@ -1,8 +1,6 @@
 package org.jian.shadow.security;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.jian.shadow.domain.SysPermission;
@@ -10,33 +8,40 @@ import org.jian.shadow.domain.SysResource;
 import org.jian.shadow.domain.SysUser;
 import org.jian.shadow.domain.SysUserRole;
 import org.jian.shadow.repository.SysPermissionRepository;
+import org.jian.shadow.repository.SysResourceRepository;
 import org.jian.shadow.repository.SysUserRepository;
+import org.jian.shadow.repository.SysUserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component("userDetailsService")
+@Service
 public class UserModelDetailsService implements UserDetailsService {
     @Autowired
     public SysUserRepository sysUserRepository;
     @Autowired
     public SysPermissionRepository sysPermissionRepository;
+    @Autowired
+    public SysUserRoleRepository sysUserRoleRepository;
+    @Autowired
+    public SysResourceRepository sysResourceRepository;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         SysUser user = sysUserRepository.findByUsername(s);//查询系统用户
         if (null == user)throw new UsernameNotFoundException("用户账户【"+s+"】查询失败");
         
-        List<Integer> roleIds = user.getRoles().stream().map(SysUserRole::getRoleId).collect(Collectors.toList());
-		Set<SysPermission> sysPermissions = new HashSet<>();
-		for (int i = 0; i < roleIds.size(); i++) {
-			sysPermissions.addAll(sysPermissionRepository.findAllByRoleId(roleIds.get(i)));
-		}
-        return new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword(),sysPermissions.stream()
-                .map(sysPermission -> new CustomGrantedAuthority(sysPermission.getResource()))
+        List<Integer> roleIds = sysUserRoleRepository.findByUserId(user.getUserId()).stream().map(SysUserRole::getRoleId).collect(Collectors.toList());
+		
+        List<SysPermission> sysPermissions = sysPermissionRepository.findByRoleIdIn(roleIds);
+        List<Integer> resourceIds = sysPermissions.stream().map(SysPermission::getResourceId).collect(Collectors.toList());
+        List<SysResource> sysReources = (List<SysResource>) sysResourceRepository.findAllById(resourceIds);
+
+        return new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword(),sysReources.stream()
+                .map(sysReource -> new CustomGrantedAuthority(sysReource))
                 .collect(Collectors.toList()));
     }
 

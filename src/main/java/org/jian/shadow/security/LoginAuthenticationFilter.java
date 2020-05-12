@@ -48,7 +48,7 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
                 .signWith(SignatureAlgorithm.HS256, bytesEncoded)
                 .compact();
 
-        response.addHeader("token", "Bearer " + token);
+        response.addHeader("Authorization", "Bearer " + token);
         try {
 			response.getWriter().write("Bearer " + token);
 		} catch (IOException e) {

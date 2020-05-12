@@ -1,17 +1,12 @@
 package org.jian.shadow.domain;
 
 import java.sql.Timestamp;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -50,9 +45,6 @@ public class SysRole{
 	@Column(name = "order_by")
     private int orderBy;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = SysPermission.class)
-	@JoinColumn(name = "role_id", referencedColumnName = "role_id")
-	private Set<SysPermission> permissions;
 	
 	public int getRoleId() {
 		return roleId;
@@ -83,11 +75,5 @@ public class SysRole{
 	}
 	public void setOrderBy(int orderBy) {
 		this.orderBy = orderBy;
-	}
-	public Set<SysPermission> getPermissions() {
-		return permissions;
-	}
-	public void setPermissions(Set<SysPermission> permissions) {
-		this.permissions = permissions;
 	}
 }

@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +31,7 @@ public class SysRoleController {
         return sysRoleService.findAll();
     }
     
-    @GetMapping("/sys/role/findAllByPage")
+    @PostMapping("/sys/role/findAllByPage")
     @PreAuthorize("hasAuthority('sys.role.findAll')")
     @ShadowLog(description = "分页查询所有角色")
     public List<SysRole> findAllByPage(

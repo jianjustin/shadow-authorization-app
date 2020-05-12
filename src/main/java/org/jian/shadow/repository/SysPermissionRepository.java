@@ -8,5 +8,5 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface SysPermissionRepository extends CrudRepository<SysPermission, Integer>, PagingAndSortingRepository<SysPermission, Integer>{
 
-	public List<SysPermission> findAllByRoleId(int id);
+	public List<SysPermission> findByRoleIdIn(List<Integer> list);
 }

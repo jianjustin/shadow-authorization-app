@@ -1,18 +1,12 @@
 package org.jian.shadow.domain;
 import java.sql.Timestamp;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
 * 描述：sys_permission模型
@@ -55,15 +49,6 @@ public class SysPermission{
 	@Column(name = "order_by")
     private int orderBy;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = SysResource.class)
-	@JoinColumn(name = "resource_id", referencedColumnName = "resource_id")
-	private SysResource resource;
-	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = SysRole.class)
-	@JoinColumn(name = "role_id", referencedColumnName = "role_id")
-	@JsonIgnore
-	private SysRole role;
-	
 	public int getPermissionId() {
 		return permissionId;
 	}
@@ -99,17 +84,5 @@ public class SysPermission{
 	}
 	public void setOrderBy(int orderBy) {
 		this.orderBy = orderBy;
-	}
-	public SysResource getResource() {
-		return resource;
-	}
-	public void setResource(SysResource resource) {
-		this.resource = resource;
-	}
-	public SysRole getRole() {
-		return role;
-	}
-	public void setRole(SysRole role) {
-		this.role = role;
 	}
 }

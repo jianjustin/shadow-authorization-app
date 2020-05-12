@@ -22,7 +22,8 @@ public class SysRoleService {
     }
     
     public List<SysRole> findAllByPage(Pageable pageable){
-        return sysRoleRepository.findAll(pageable).getContent();
+    	List<SysRole> list = sysRoleRepository.findAll(pageable).getContent();
+        return list;
     }
 
     public SysRole findOne(int id){

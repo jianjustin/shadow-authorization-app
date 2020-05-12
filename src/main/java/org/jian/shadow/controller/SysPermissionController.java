@@ -1,5 +1,7 @@
 package org.jian.shadow.controller;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.jian.shadow.common.log.ShadowLog;
@@ -49,6 +51,7 @@ public class SysPermissionController {
     @PreAuthorize("hasAuthority('sys.permission.insert')")
     @ShadowLog(description = "添加权限")
     public void insert(@RequestBody SysPermission sysPermission){
+    	sysPermission.setCreateDate(Timestamp.valueOf(LocalDateTime.now()));
         sysPermissionService.insert(sysPermission);
     }
 

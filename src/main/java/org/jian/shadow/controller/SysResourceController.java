@@ -1,5 +1,7 @@
 package org.jian.shadow.controller;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.jian.shadow.common.log.ShadowLog;
@@ -49,6 +51,7 @@ public class SysResourceController {
     @PreAuthorize("hasAuthority('sys.resource.insert')")
     @ShadowLog(description = "添加资源")
     public void insert(@RequestBody SysResource sysResource){
+    	sysResource.setCreateDate(Timestamp.valueOf(LocalDateTime.now()));
         sysResourceService.insert(sysResource);
     }
 

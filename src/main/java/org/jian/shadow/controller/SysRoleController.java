@@ -1,5 +1,7 @@
 package org.jian.shadow.controller;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.jian.shadow.common.log.ShadowLog;
@@ -49,6 +51,7 @@ public class SysRoleController {
     @PreAuthorize("hasAuthority('sys.role.insert')")
     @ShadowLog(description = "添加新角色")
     public void insert(@RequestBody SysRole sysRole){
+    	sysRole.setCreateDate(Timestamp.valueOf(LocalDateTime.now()));
         sysRoleService.insert(sysRole);
     }
 
@@ -56,6 +59,10 @@ public class SysRoleController {
     @PreAuthorize("hasAuthority('sys.role.update')")
     @ShadowLog(description = "更新角色信息")
     public void update(@RequestBody SysRole sysRole){
+    	SysRole oldSysRole = sysRoleService.findOne(sysRole.getRoleId());
+    	if(null != sysRole.getRoleName() && !"".equals(sysRole.getRoleName()))oldSysRole.setRoleName(sysRole.getRoleName());
+    	oldSysRole.setRoleType(sysRole.getRoleType());
+    	sysRole.setCreateDate(Timestamp.valueOf(LocalDateTime.now()));
         sysRoleService.update(sysRole);
     }
 

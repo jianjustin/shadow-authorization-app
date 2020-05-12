@@ -1,19 +1,19 @@
 INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (12, '添加资源', '/sys/resource/save', 'sys.resource.save', 1, 1);
-INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (19, '修改资源', '/sys/resource/update', 'sys.resource.update', 1, 8);
-INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (13, '删除资源', '/sys/resource/delete', 'sys.resource.delete', 1, 2);
-INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (14, '查看资源', '/sys/resource/query', 'sys.resource.query', 1, 3);
-INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (15, '添加权限', '/sys/permission/save', 'sys.permission.save', 1, 4);
-INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (19, '修改权限', '/sys/permission/update', 'sys.permission.update', 1, 8);
-INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (16, '删除权限', '/sys/permission/delete', 'sys.permission.delete', 1, 5);
-INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (17, '查看权限', '/sys/permission/query', 'sys.permission.query', 1, 6);
-INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (18, '添加角色', '/sys/role/insert', 'sys.role.insert', 1, 7);
-INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (19, '修改角色', '/sys/role/update', 'sys.role.update', 1, 8);
-INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (20, '删除角色', '/sys/role/delete', 'sys.role.delete', 1, 9);
-INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (21, '查询角色', '/sys/role/query', 'sys.role.query', 1, 10);
-INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (22, '添加用户', '/sys/user/insert', 'sys.user.insert', 1, 11);
-INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (23, '修改用户', '/sys/user/update', 'sys.user.update', 1, 12);
-INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (24, '删除用户', '/sys/user/delete', 'sys.user.delete', 1, 13);
-INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (25, '查询用户', '/sys/user/query', 'sys.user.query', 1, 14);
+INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (13, '修改资源', '/sys/resource/update', 'sys.resource.update', 1, 8);
+INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (14, '删除资源', '/sys/resource/delete', 'sys.resource.delete', 1, 2);
+INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (15, '查看资源', '/sys/resource/query', 'sys.resource.query', 1, 3);
+INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (16, '添加权限', '/sys/permission/save', 'sys.permission.save', 1, 4);
+INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (17, '修改权限', '/sys/permission/update', 'sys.permission.update', 1, 8);
+INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (18, '删除权限', '/sys/permission/delete', 'sys.permission.delete', 1, 5);
+INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (19, '查看权限', '/sys/permission/query', 'sys.permission.query', 1, 6);
+INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (20, '添加角色', '/sys/role/insert', 'sys.role.insert', 1, 7);
+INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (21, '修改角色', '/sys/role/update', 'sys.role.update', 1, 8);
+INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (22, '删除角色', '/sys/role/delete', 'sys.role.delete', 1, 9);
+INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (23, '查询角色', '/sys/role/query', 'sys.role.query', 1, 10);
+INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (24, '添加用户', '/sys/user/insert', 'sys.user.insert', 1, 11);
+INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (25, '修改用户', '/sys/user/update', 'sys.user.update', 1, 12);
+INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (26, '删除用户', '/sys/user/delete', 'sys.user.delete', 1, 13);
+INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (27, '查询用户', '/sys/user/query', 'sys.user.query', 1, 14);
 
 
 INSERT INTO sys_role(role_id,role_name,role_type,order_by) VALUES (12, 'ADMIN', 0, 1);

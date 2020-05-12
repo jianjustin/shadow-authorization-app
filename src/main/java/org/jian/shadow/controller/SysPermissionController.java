@@ -2,6 +2,7 @@ package org.jian.shadow.controller;
 
 import java.util.List;
 
+import org.jian.shadow.common.log.ShadowLog;
 import org.jian.shadow.domain.SysPermission;
 import org.jian.shadow.service.SysPermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,38 +24,44 @@ public class SysPermissionController {
     public SysPermissionService sysPermissionService;
 
     @GetMapping("/sys/permission")
-    @PreAuthorize("hasAuthority('sys.permission.findAll')")
+    @PreAuthorize("hasAuthority('sys.permission.query')")
+    @ShadowLog(description = "查询所有权限")
     public List<SysPermission> findAll(){
         return sysPermissionService.findAll();
     }
     
     @GetMapping("/sys/permission/findAllByPage")
-    @PreAuthorize("hasAuthority('sys.permission.findAll')")
+    @PreAuthorize("hasAuthority('sys.permission.query')")
+    @ShadowLog(description = "分页查询所有权限")
     public List<SysPermission> findAllByPage(
     		@PageableDefault(page = 0, size = 10, direction = Sort.Direction.DESC) Pageable pageable){
         return sysPermissionService.findAllByPage(pageable);
     }
 
     @GetMapping("/sys/permission/{id}")
-    @PreAuthorize("hasAuthority('sys.permission.findOne')")
+    @PreAuthorize("hasAuthority('sys.permission.query')")
+    @ShadowLog(description = "查询指定权限信息")
     public SysPermission findOne(@PathVariable("id") int id){
         return sysPermissionService.findOne(id);
     }
 
     @PostMapping("/sys/permission")
     @PreAuthorize("hasAuthority('sys.permission.insert')")
+    @ShadowLog(description = "添加权限")
     public void insert(@RequestBody SysPermission sysPermission){
         sysPermissionService.insert(sysPermission);
     }
 
     @PutMapping("/sys/permission")
     @PreAuthorize("hasAuthority('sys.permission.update')")
+    @ShadowLog(description = "更新权限")
     public void update(@RequestBody SysPermission sysPermission){
         sysPermissionService.update(sysPermission);
     }
 
     @DeleteMapping("/sys/permission/{id}")
     @PreAuthorize("hasAuthority('sys.permission.delete')")
+    @ShadowLog(description = "删除权限")
     public void delete(@PathVariable("id") int id){
         sysPermissionService.delete(id);
     }

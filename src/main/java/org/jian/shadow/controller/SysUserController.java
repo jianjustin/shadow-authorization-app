@@ -2,14 +2,18 @@ package org.jian.shadow.controller;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.jian.shadow.common.PageInfo;
 import org.jian.shadow.common.ResponseEntityInfo;
 import org.jian.shadow.common.log.ShadowLog;
 import org.jian.shadow.domain.SysUser;
+import org.jian.shadow.domain.view.SimpleUserView;
 import org.jian.shadow.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -39,12 +43,13 @@ public class SysUserController {
     @PostMapping("/sys/user/findAllByPage")
     @PreAuthorize("hasAuthority('sys.user.query')")
     @ShadowLog(description = "分页查询用户")
-    public ResponseEntityInfo<SysUser> findAllByPage(
+    public ResponseEntityInfo<SimpleUserView> findAllByPage(
     		@RequestBody PageInfo pageInfo){
     	Pageable pageable = PageRequest.of(pageInfo.getPage()-1, pageInfo.getSize());
-    	List<SysUser> list = sysUserService.findAllByPage(pageable);
-    	pageInfo.setTotal(sysUserService.findAllCount());
-    	ResponseEntityInfo<SysUser> res = new ResponseEntityInfo<SysUser>(HttpStatus.OK, null, list, pageInfo, null, "分页查询成功");
+    	Page<Map<String, Object>> data = sysUserService.findAllByPage(pageable);
+    	pageInfo.setTotal(data.getTotalElements());
+    	List<SimpleUserView> list = userMapToData(data.getContent());//数据转换
+    	ResponseEntityInfo<SimpleUserView> res = new ResponseEntityInfo<SimpleUserView>(HttpStatus.OK, null, list, pageInfo, null, "分页查询成功");
         return res;
     }
 
@@ -84,5 +89,21 @@ public class SysUserController {
     	sysUserService.delete(id);
         ResponseEntityInfo<SysUser> res = new ResponseEntityInfo<SysUser>(HttpStatus.OK, oldSysUser, null, null, null, "用户删除成功");
         return res;
+    }
+    
+    
+    private List<SimpleUserView> userMapToData(List<Map<String, Object>> dataMapList){
+    	List<SimpleUserView> list = new ArrayList<>(dataMapList.size());
+    	if(0 == dataMapList.size())return list;
+    	
+    	for (int i = 0; i < dataMapList.size(); i++) {
+			SimpleUserView item = new SimpleUserView();
+			item.setUserId((int)dataMapList.get(i).get("USER_ID"));
+			item.setRoleId((int)dataMapList.get(i).get("ROLE_ID"));
+			item.setRoleName((String)dataMapList.get(i).get("ROLE_NAME"));
+			item.setUsername((String)dataMapList.get(i).get("USERNAME"));
+			list.add(item);
+		}
+    	return list;
     }
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import org.jian.shadow.domain.SysRole;
 import org.jian.shadow.repository.SysRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -21,13 +22,9 @@ public class SysRoleService {
         return result;
     }
     
-    public long findAllCount() {
-    	return sysRoleRepository.count();
-    }
     
-    public List<SysRole> findAllByPage(Pageable pageable){
-    	List<SysRole> list = sysRoleRepository.findAll(pageable).getContent();
-        return list;
+    public Page<SysRole> findAllByPage(Pageable pageable){
+    	return sysRoleRepository.findAll(pageable);
     }
 
     public SysRole findOne(int id){

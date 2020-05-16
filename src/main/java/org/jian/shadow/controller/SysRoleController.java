@@ -10,6 +10,7 @@ import org.jian.shadow.common.log.ShadowLog;
 import org.jian.shadow.domain.SysRole;
 import org.jian.shadow.service.SysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -42,9 +43,9 @@ public class SysRoleController {
     public ResponseEntityInfo<SysRole> findAllByPage(
     		@RequestBody PageInfo pageInfo){
     	Pageable pageable = PageRequest.of(pageInfo.getPage()-1, pageInfo.getSize());
-    	List<SysRole> list = sysRoleService.findAllByPage(pageable);
-    	pageInfo.setTotal(sysRoleService.findAllCount());
-    	ResponseEntityInfo<SysRole> res = new ResponseEntityInfo<SysRole>(HttpStatus.OK, null, list, pageInfo, null, "分页查询成功");
+    	Page<SysRole> data = sysRoleService.findAllByPage(pageable);
+    	pageInfo.setTotal(data.getTotalElements());
+    	ResponseEntityInfo<SysRole> res = new ResponseEntityInfo<SysRole>(HttpStatus.OK, null, data.getContent(), pageInfo, null, "分页查询成功");
         return res;
     }
 

@@ -6,11 +6,11 @@ INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operati
 INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (17, '修改权限', '/sys/permission/update', 'sys.permission.update', 1, 8);
 INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (18, '删除权限', '/sys/permission/delete', 'sys.permission.delete', 1, 5);
 INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (19, '查看权限', '/sys/permission/query', 'sys.permission.query', 1, 6);
-INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (20, '添加角色', '/sys/role/insert', 'sys.role.insert', 1, 7);
+INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (20, '添加角色', '/sys/role/save', 'sys.role.save', 1, 7);
 INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (21, '修改角色', '/sys/role/update', 'sys.role.update', 1, 8);
 INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (22, '删除角色', '/sys/role/delete', 'sys.role.delete', 1, 9);
 INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (23, '查询角色', '/sys/role/query', 'sys.role.query', 1, 10);
-INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (24, '添加用户', '/sys/user/insert', 'sys.user.insert', 1, 11);
+INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (24, '添加用户', '/sys/user/save', 'sys.user.save', 1, 11);
 INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (25, '修改用户', '/sys/user/update', 'sys.user.update', 1, 12);
 INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (26, '删除用户', '/sys/user/delete', 'sys.user.delete', 1, 13);
 INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (27, '查询用户', '/sys/user/query', 'sys.user.query', 1, 14);

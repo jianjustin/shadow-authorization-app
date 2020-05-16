@@ -2,10 +2,12 @@ package org.jian.shadow.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.jian.shadow.domain.SysUser;
 import org.jian.shadow.repository.SysUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -21,12 +23,8 @@ public class SysUserService {
         return result;
     }
     
-    public long findAllCount() {
-    	return sysUserRepository.count();
-    }
-    
-    public List<SysUser> findAllByPage(Pageable pageable){
-        return sysUserRepository.findAll(pageable).getContent();
+    public Page<Map<String, Object>> findAllByPage(Pageable pageable){
+        return sysUserRepository.findAllList(pageable);
     }
 
     public SysUser findOne(int id){

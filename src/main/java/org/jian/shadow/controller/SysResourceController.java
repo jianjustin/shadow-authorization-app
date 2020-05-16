@@ -10,6 +10,7 @@ import org.jian.shadow.common.log.ShadowLog;
 import org.jian.shadow.domain.SysResource;
 import org.jian.shadow.service.SysResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -42,9 +43,9 @@ public class SysResourceController {
     public ResponseEntityInfo<SysResource> findAllByPage(
     		@RequestBody PageInfo pageInfo){
     	Pageable pageable = PageRequest.of(pageInfo.getPage()-1, pageInfo.getSize());
-    	List<SysResource> list = sysResourceService.findAllByPage(pageable);
-    	pageInfo.setTotal(sysResourceService.findAllCount());
-    	ResponseEntityInfo<SysResource> res = new ResponseEntityInfo<SysResource>(HttpStatus.OK, null, list, pageInfo, null, "分页查询成功");
+    	Page<SysResource> data = sysResourceService.findAllByPage(pageable);
+    	pageInfo.setTotal(data.getTotalElements());
+    	ResponseEntityInfo<SysResource> res = new ResponseEntityInfo<SysResource>(HttpStatus.OK, null, data.getContent(), pageInfo, null, "分页查询成功");
         return res;
     }
     

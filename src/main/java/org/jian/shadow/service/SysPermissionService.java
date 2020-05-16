@@ -21,6 +21,10 @@ public class SysPermissionService {
         return result;
     }
     
+    public List<SysPermission> findAllByRole(List<Integer> roleIds){
+    	return (List<SysPermission>) sysPermissionRepository.findAllById(roleIds);
+    }
+    
     public List<SysPermission> findAllByPage(Pageable pageable){
         return sysPermissionRepository.findAll(pageable).getContent();
     }
@@ -29,8 +33,12 @@ public class SysPermissionService {
         return sysPermissionRepository.findById(id).get();
     }
 
-    public void insert(SysPermission sysPermission){
+    public void save(SysPermission sysPermission){
     	sysPermissionRepository.save(sysPermission);
+    }
+    
+    public void saveAll(List<SysPermission> sysPermissions){
+    	sysPermissionRepository.saveAll(sysPermissions);
     }
 
     public void update(SysPermission sysPermission){

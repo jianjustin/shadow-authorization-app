@@ -2,7 +2,11 @@ package org.jian.shadow.controller;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.jian.shadow.common.log.ShadowLog;
 import org.jian.shadow.domain.SysPermission;
@@ -40,6 +44,15 @@ public class SysPermissionController {
         return sysPermissionService.findAllByPage(pageable);
     }
 
+    @GetMapping("/sys/permission/queryByRole/{id}")
+    @PreAuthorize("hasAuthority('sys.permission.query')")
+    @ShadowLog(description = "查询指定角色权限信息")
+    public List<SysPermission> queryByRole(@PathVariable("id") int id){
+    	List<Integer> ids = new ArrayList<>();
+    	ids.add(id);
+        return sysPermissionService.findAllByRole(ids);
+    }
+    
     @GetMapping("/sys/permission/{id}")
     @PreAuthorize("hasAuthority('sys.permission.query')")
     @ShadowLog(description = "查询指定权限信息")
@@ -52,9 +65,40 @@ public class SysPermissionController {
     @ShadowLog(description = "添加权限")
     public void save(@RequestBody SysPermission sysPermission){
     	sysPermission.setCreateDate(Timestamp.valueOf(LocalDateTime.now()));
-        sysPermissionService.insert(sysPermission);
+        sysPermissionService.save(sysPermission);
     }
 
+    @PutMapping("/sys/permission/updatePermission/{id}")
+    @PreAuthorize("hasAuthority('sys.permission.update')")
+    @ShadowLog(description = "更新权限")
+    public void updatePermission(@PathVariable("id") int id,
+    		@RequestBody List<SysPermission> sysPermissions){
+    	List<Integer> ids = new ArrayList<>();
+    	ids.add(id);
+        List<SysPermission> oldSysPermissions = sysPermissionService.findAllByRole(ids);
+        Map<Integer, Boolean> map = new HashMap<>();
+        for (int i = 0; i < oldSysPermissions.size(); i++) 
+        	map.put(oldSysPermissions.get(i).getResourceId(), true);
+		
+        List<SysPermission> saveList = new ArrayList<>();
+        for (int i = 0; i < sysPermissions.size(); i++) {
+			if(map.get(sysPermissions.get(i).getResourceId()))continue;
+			SysPermission sysPermission = new SysPermission();
+			sysPermission.setCreateDate(Timestamp.valueOf(LocalDateTime.now()));
+			sysPermission.setRoleId(id);
+			sysPermission.setResourceId(sysPermissions.get(i).getResourceId());
+			sysPermission.setPermissionStatus(1);
+			saveList.add(sysPermission);
+			map.remove(sysPermission.getPermissionId());
+		}
+        sysPermissionService.saveAll(saveList);//新增权限
+        if(!map.keySet().isEmpty()) {
+        	Iterator<Integer> iterator = map.keySet().iterator();
+        	while(iterator.hasNext()) 
+        		sysPermissionService.delete(iterator.next());	
+        }
+    }
+    
     @PutMapping("/sys/permission")
     @PreAuthorize("hasAuthority('sys.permission.update')")
     @ShadowLog(description = "更新权限")

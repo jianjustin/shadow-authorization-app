@@ -6,6 +6,7 @@ import java.util.List;
 import org.jian.shadow.domain.SysResource;
 import org.jian.shadow.repository.SysResourceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -21,12 +22,9 @@ public class SysResourceService {
         return result;
     }
     
-    public long findAllCount(){
-        return sysResourceRepository.count();
-    }
     
-    public List<SysResource> findAllByPage(Pageable pageable){
-        return sysResourceRepository.findAll(pageable).getContent();
+    public Page<SysResource> findAllByPage(Pageable pageable){
+        return sysResourceRepository.findAll(pageable);
     }
 
     public SysResource findOne(int id){

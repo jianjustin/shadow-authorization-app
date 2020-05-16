@@ -4,13 +4,15 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.jian.shadow.common.PageInfo;
+import org.jian.shadow.common.ResponseEntityInfo;
 import org.jian.shadow.common.log.ShadowLog;
 import org.jian.shadow.domain.SysUser;
 import org.jian.shadow.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,44 +30,59 @@ public class SysUserController {
     @GetMapping("/sys/user")
     @PreAuthorize("hasAuthority('sys.user.query')")
     @ShadowLog(description = "查询用户")
-    public List<SysUser> findAll(){
-        return sysUserService.findAll();
+    public ResponseEntityInfo<SysUser> findAll(){
+    	List<SysUser> list = sysUserService.findAll();
+    	ResponseEntityInfo<SysUser> res = new ResponseEntityInfo<SysUser>(HttpStatus.OK, null, list, null, null, "查询成功");
+        return res;
     }
     
-    @GetMapping("/sys/user/findAllByPage")
+    @PostMapping("/sys/user/findAllByPage")
     @PreAuthorize("hasAuthority('sys.user.query')")
     @ShadowLog(description = "分页查询用户")
-    public List<SysUser> findAllByPage(
-    		@PageableDefault(page = 0, size = 10, direction = Sort.Direction.DESC) Pageable pageable){
-        return sysUserService.findAllByPage(pageable);
+    public ResponseEntityInfo<SysUser> findAllByPage(
+    		@RequestBody PageInfo pageInfo){
+    	Pageable pageable = PageRequest.of(pageInfo.getPage()-1, pageInfo.getSize());
+    	List<SysUser> list = sysUserService.findAllByPage(pageable);
+    	pageInfo.setTotal(sysUserService.findAllCount());
+    	ResponseEntityInfo<SysUser> res = new ResponseEntityInfo<SysUser>(HttpStatus.OK, null, list, pageInfo, null, "分页查询成功");
+        return res;
     }
 
     @GetMapping("/sys/user/{id}")
     @PreAuthorize("hasAuthority('sys.user.query')")
     @ShadowLog(description = "查询指定用户")
-    public SysUser findOne(@PathVariable("id") int id){
-        return sysUserService.findOne(id);
+    public ResponseEntityInfo<SysUser> findOne(@PathVariable("id") int id){
+    	SysUser sysUser = sysUserService.findOne(id);
+    	ResponseEntityInfo<SysUser> res = new ResponseEntityInfo<SysUser>(HttpStatus.OK, sysUser, null, null, null, "用户查询成功");
+        return res;
     }
 
     @PostMapping("/sys/user")
-    @PreAuthorize("hasAuthority('sys.user.insert')")
+    @PreAuthorize("hasAuthority('sys.user.save')")
     @ShadowLog(description = "添加用户")
-    public void insert(@RequestBody SysUser sysUser){
+    public ResponseEntityInfo<SysUser> save(@RequestBody SysUser sysUser){
     	sysUser.setCreateDate(Timestamp.valueOf(LocalDateTime.now()));
-        sysUserService.insert(sysUser);
+    	sysUser = sysUserService.insert(sysUser);
+        ResponseEntityInfo<SysUser> res = new ResponseEntityInfo<SysUser>(HttpStatus.OK, sysUser, null, null, null, "用户添加成功");
+        return res;
     }
 
     @PutMapping("/sys/user")
     @PreAuthorize("hasAuthority('sys.user.update')")
     @ShadowLog(description = "修改用户信息")
-    public void update(@RequestBody SysUser sysUser){
-        sysUserService.update(sysUser);
+    public ResponseEntityInfo<SysUser> update(@RequestBody SysUser sysUser){
+    	sysUser = sysUserService.update(sysUser);
+        ResponseEntityInfo<SysUser> res = new ResponseEntityInfo<SysUser>(HttpStatus.OK, sysUser, null, null, null, "用户修改成功");
+        return res;
     }
 
     @DeleteMapping("/sys/user/{id}")
     @PreAuthorize("hasAuthority('sys.user.delete')")
     @ShadowLog(description = "删除指定用户")
-    public void delete(@PathVariable("id") int id){
-        sysUserService.delete(id);
+    public ResponseEntityInfo<SysUser> delete(@PathVariable("id") int id){
+    	SysUser oldSysUser = sysUserService.findOne(id);
+    	sysUserService.delete(id);
+        ResponseEntityInfo<SysUser> res = new ResponseEntityInfo<SysUser>(HttpStatus.OK, oldSysUser, null, null, null, "用户删除成功");
+        return res;
     }
 }

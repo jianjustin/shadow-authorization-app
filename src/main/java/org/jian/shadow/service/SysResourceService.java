@@ -21,6 +21,10 @@ public class SysResourceService {
         return result;
     }
     
+    public long findAllCount(){
+        return sysResourceRepository.count();
+    }
+    
     public List<SysResource> findAllByPage(Pageable pageable){
         return sysResourceRepository.findAll(pageable).getContent();
     }
@@ -29,12 +33,12 @@ public class SysResourceService {
         return sysResourceRepository.findById(id).get();
     }
 
-    public void insert(SysResource sysResource){
-    	sysResourceRepository.save(sysResource);
+    public SysResource insert(SysResource sysResource){
+    	return sysResourceRepository.save(sysResource);
     }
 
-    public void update(SysResource sysResource){
-    	sysResourceRepository.save(sysResource);
+    public SysResource update(SysResource sysResource){
+    	return sysResourceRepository.save(sysResource);
     }
 
     public void delete(int id){

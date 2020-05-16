@@ -22,7 +22,7 @@ public class SysResource{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "resource_id")
-    private int resourId;
+    private int resourceId;
 	/*
      * 资源类型
      */
@@ -54,11 +54,12 @@ public class SysResource{
      */
 	@Column(name = "order_by")
     private int orderBy;
-	public int getResourId() {
-		return resourId;
+	
+	public int getResourceId() {
+		return resourceId;
 	}
-	public void setResourId(int resourId) {
-		this.resourId = resourId;
+	public void setResourceId(int resourceId) {
+		this.resourceId = resourceId;
 	}
 	public int getResourceType() {
 		return resourceType;

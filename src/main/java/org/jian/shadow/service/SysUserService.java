@@ -21,6 +21,10 @@ public class SysUserService {
         return result;
     }
     
+    public long findAllCount() {
+    	return sysUserRepository.count();
+    }
+    
     public List<SysUser> findAllByPage(Pageable pageable){
         return sysUserRepository.findAll(pageable).getContent();
     }
@@ -33,12 +37,12 @@ public class SysUserService {
         return sysUserRepository.findByUsername(username);
     }
 
-    public void insert(SysUser sysUser){
-    	sysUserRepository.save(sysUser);
+    public SysUser insert(SysUser sysUser){
+    	return sysUserRepository.save(sysUser);
     }
 
-    public void update(SysUser sysUser){
-    	sysUserRepository.save(sysUser);
+    public SysUser update(SysUser sysUser){
+    	return sysUserRepository.save(sysUser);
     }
 
     public void delete(int id){

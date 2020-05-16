@@ -32,7 +32,7 @@ public class SysPermissionController {
         return sysPermissionService.findAll();
     }
     
-    @GetMapping("/sys/permission/findAllByPage")
+    @PostMapping("/sys/permission/findAllByPage")
     @PreAuthorize("hasAuthority('sys.permission.query')")
     @ShadowLog(description = "分页查询所有权限")
     public List<SysPermission> findAllByPage(
@@ -48,9 +48,9 @@ public class SysPermissionController {
     }
 
     @PostMapping("/sys/permission")
-    @PreAuthorize("hasAuthority('sys.permission.insert')")
+    @PreAuthorize("hasAuthority('sys.permission.save')")
     @ShadowLog(description = "添加权限")
-    public void insert(@RequestBody SysPermission sysPermission){
+    public void save(@RequestBody SysPermission sysPermission){
     	sysPermission.setCreateDate(Timestamp.valueOf(LocalDateTime.now()));
         sysPermissionService.insert(sysPermission);
     }

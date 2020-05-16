@@ -35,7 +35,14 @@ INSERT INTO sys_permission(resource_id,role_id,permission_status,order_by) VALUE
 INSERT INTO sys_permission(resource_id,role_id,permission_status,order_by) VALUES (19, 12, 1, 8);
 INSERT INTO sys_permission(resource_id,role_id,permission_status,order_by) VALUES (20, 12, 1, 9);
 INSERT INTO sys_permission(resource_id,role_id,permission_status,order_by) VALUES (21, 12, 1, 10);
+INSERT INTO sys_permission(resource_id,role_id,permission_status,order_by) VALUES (22, 12, 1, 11);
+INSERT INTO sys_permission(resource_id,role_id,permission_status,order_by) VALUES (23, 12, 1, 12);
+INSERT INTO sys_permission(resource_id,role_id,permission_status,order_by) VALUES (24, 12, 1, 13);
+INSERT INTO sys_permission(resource_id,role_id,permission_status,order_by) VALUES (25, 12, 1, 14);
+INSERT INTO sys_permission(resource_id,role_id,permission_status,order_by) VALUES (26, 12, 1, 15);
+INSERT INTO sys_permission(resource_id,role_id,permission_status,order_by) VALUES (27, 12, 1, 16);
 
-INSERT INTO sys_permission(resource_id,role_id,permission_status,order_by) VALUES (14, 13, 1, 11);
-INSERT INTO sys_permission(resource_id,role_id,permission_status,order_by) VALUES (17, 13, 1, 12);
-INSERT INTO sys_permission(resource_id,role_id,permission_status,order_by) VALUES (21, 13, 1, 13);
+
+INSERT INTO sys_permission(resource_id,role_id,permission_status,order_by) VALUES (14, 13, 1, 17);
+INSERT INTO sys_permission(resource_id,role_id,permission_status,order_by) VALUES (17, 13, 1, 18);
+INSERT INTO sys_permission(resource_id,role_id,permission_status,order_by) VALUES (21, 13, 1, 19);

@@ -21,6 +21,10 @@ public class SysRoleService {
         return result;
     }
     
+    public long findAllCount() {
+    	return sysRoleRepository.count();
+    }
+    
     public List<SysRole> findAllByPage(Pageable pageable){
     	List<SysRole> list = sysRoleRepository.findAll(pageable).getContent();
         return list;
@@ -30,12 +34,12 @@ public class SysRoleService {
         return sysRoleRepository.findById(id).get();
     }
 
-    public void insert(SysRole sysRole){
-    	sysRoleRepository.save(sysRole);
+    public SysRole insert(SysRole sysRole){
+    	return sysRoleRepository.save(sysRole);
     }
 
-    public void update(SysRole sysRole){
-    	sysRoleRepository.save(sysRole);
+    public SysRole update(SysRole sysRole){
+    	return sysRoleRepository.save(sysRole);
     }
 
     public void delete(int id){

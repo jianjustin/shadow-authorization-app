@@ -47,6 +47,17 @@ CREATE TABLE `sys_permission` (
   `order_by` int
 );
 
+DROP TABLE IF EXISTS `classify`;
+CREATE TABLE `classify` (
+    `id` varchar(100) NOT NULL PRIMARY KEY,
+    `name` varchar(100) NOT NULL,
+    `book_count` int default 0,
+    `monthly_count` int default 0,
+    `icon` varchar(100),
+    `create_date` timestamp DEFAULT CURRENT_TIMESTAMP,
+    `order_by` int
+);
+
 ALTER TABLE sys_user_role ADD FOREIGN KEY (`user_id`) REFERENCES sys_user (`user_id`);
 ALTER TABLE sys_user_role ADD FOREIGN KEY (`role_id`) REFERENCES sys_role (`role_id`);
 ALTER TABLE sys_permission ADD FOREIGN KEY (`resource_id`) REFERENCES sys_resource (`resource_id`);

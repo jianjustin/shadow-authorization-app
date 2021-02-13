@@ -14,6 +14,7 @@ INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operati
 INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (25, '修改用户', '/sys/user/update', 'sys.user.update', 1, 12);
 INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (26, '删除用户', '/sys/user/delete', 'sys.user.delete', 1, 13);
 INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (27, '查询用户', '/sys/user/query', 'sys.user.query', 1, 14);
+INSERT INTO sys_resource(resource_id,resource_name,resource_url,resource_operation,resource_type,order_by) VALUES (28, '查询分类', '/classify/query', 'classify.query', 1, 15);
 
 
 INSERT INTO sys_role(role_id,role_name,role_type,order_by) VALUES (12, 'ADMIN', 0, 1);
@@ -41,8 +42,14 @@ INSERT INTO sys_permission(resource_id,role_id,permission_status,order_by) VALUE
 INSERT INTO sys_permission(resource_id,role_id,permission_status,order_by) VALUES (25, 12, 1, 14);
 INSERT INTO sys_permission(resource_id,role_id,permission_status,order_by) VALUES (26, 12, 1, 15);
 INSERT INTO sys_permission(resource_id,role_id,permission_status,order_by) VALUES (27, 12, 1, 16);
+INSERT INTO sys_permission(resource_id,role_id,permission_status,order_by) VALUES (28, 12, 1, 17);
 
 
 INSERT INTO sys_permission(resource_id,role_id,permission_status,order_by) VALUES (14, 13, 1, 17);
 INSERT INTO sys_permission(resource_id,role_id,permission_status,order_by) VALUES (17, 13, 1, 18);
 INSERT INTO sys_permission(resource_id,role_id,permission_status,order_by) VALUES (21, 13, 1, 19);
+
+INSERT INTO classify(id, name, book_count, monthly_count, icon, order_by) VALUES ('364d6855-125c-4e95-b20c-fb2f16fd94b0', '精选', 0, 0, '/icon/精选_.png',1);
+INSERT INTO classify(id, name, book_count, monthly_count, icon, order_by) VALUES ('503c4472-93c8-4d2e-8b34-aea0408ebc59', '文学', 0, 0, '/icon/文学_.png',2);
+INSERT INTO classify(id, name, book_count, monthly_count, icon, order_by) VALUES ('2f390b67-3268-4f68-80fd-744c9ae9556b', '科幻', 0, 0, '/icon/科幻_.png',3);
+INSERT INTO classify(id, name, book_count, monthly_count, icon, order_by) VALUES ('17c3eba1-abfa-4ac0-98d6-6cd2b973a333', '推理', 0, 0, '/icon/推理_.png',4);

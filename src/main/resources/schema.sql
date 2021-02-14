@@ -58,6 +58,21 @@ CREATE TABLE `classify` (
     `order_by` int
 );
 
+DROP TABLE IF EXISTS `book`;
+CREATE TABLE `book` (
+    `id` varchar(100) NOT NULL PRIMARY KEY,
+    `name` varchar(100) NOT NULL,
+    `classify` varchar(100),
+    `cover` varchar(100),
+    `long_intro` text,
+    `author` varchar(100),
+    `tags` varchar(100),
+    `chapters_count` int,
+    `word_count` int,
+    `create_date` timestamp DEFAULT CURRENT_TIMESTAMP,
+    `order_by` int
+);
+
 ALTER TABLE sys_user_role ADD FOREIGN KEY (`user_id`) REFERENCES sys_user (`user_id`);
 ALTER TABLE sys_user_role ADD FOREIGN KEY (`role_id`) REFERENCES sys_role (`role_id`);
 ALTER TABLE sys_permission ADD FOREIGN KEY (`resource_id`) REFERENCES sys_resource (`resource_id`);

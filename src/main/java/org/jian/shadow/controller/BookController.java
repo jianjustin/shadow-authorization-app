@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,7 +28,7 @@ public class BookController {
         return bookService.findAll();
     }
 
-    @GetMapping("/book/findBooksByClassify")
+    @PostMapping("/book/findBooksByClassify")
     @PreAuthorize("hasAuthority('book.query')")
     @ShadowLog(description = "根据分类查询所有书籍")
     public Page<Book> findBooksByClassify(@RequestBody BookQueryView bookQueryView){
@@ -37,7 +38,7 @@ public class BookController {
         return bookService.findBooksByClassify(bookQueryView.getClassify(), pageRequest);
     }
 
-    @GetMapping("/book/findBooksByNameIsLike")
+    @PostMapping("/book/findBooksByNameIsLike")
     @PreAuthorize("hasAuthority('book.query')")
     @ShadowLog(description = "根据标题查询所有书籍")
     public Page<Book> findBooksByNameIsLike(@RequestBody BookQueryView bookQueryView){

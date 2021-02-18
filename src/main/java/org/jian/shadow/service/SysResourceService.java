@@ -2,6 +2,7 @@ package org.jian.shadow.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.jian.shadow.domain.SysResource;
 import org.jian.shadow.repository.SysResourceRepository;
@@ -32,6 +33,7 @@ public class SysResourceService {
     }
 
     public SysResource insert(SysResource sysResource){
+        sysResource.setResourceId(UUID.randomUUID().toString());
     	return sysResourceRepository.save(sysResource);
     }
 

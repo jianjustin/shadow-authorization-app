@@ -3,6 +3,7 @@ package org.jian.shadow.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.jian.shadow.domain.SysUser;
 import org.jian.shadow.repository.SysUserRepository;
@@ -36,6 +37,7 @@ public class SysUserService {
     }
 
     public SysUser insert(SysUser sysUser){
+        sysUser.setUserId(UUID.randomUUID().toString());
     	return sysUserRepository.save(sysUser);
     }
 

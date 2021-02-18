@@ -2,6 +2,7 @@ package org.jian.shadow.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.jian.shadow.domain.SysRole;
 import org.jian.shadow.repository.SysRoleRepository;
@@ -32,6 +33,7 @@ public class SysRoleService {
     }
 
     public SysRole insert(SysRole sysRole){
+        sysRole.setRoleId(UUID.randomUUID().toString());
     	return sysRoleRepository.save(sysRole);
     }
 

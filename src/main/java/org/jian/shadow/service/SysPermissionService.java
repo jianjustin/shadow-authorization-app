@@ -2,6 +2,7 @@ package org.jian.shadow.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.jian.shadow.domain.SysPermission;
 import org.jian.shadow.repository.SysPermissionRepository;
@@ -34,10 +35,14 @@ public class SysPermissionService {
     }
 
     public void save(SysPermission sysPermission){
+        sysPermission.setPermissionId(UUID.randomUUID().toString());
     	sysPermissionRepository.save(sysPermission);
     }
     
     public void saveAll(List<SysPermission> sysPermissions){
+        sysPermissions.forEach(sysPermission -> {
+            sysPermission.setPermissionId(UUID.randomUUID().toString());
+        });
     	sysPermissionRepository.saveAll(sysPermissions);
     }
 

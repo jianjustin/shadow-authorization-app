@@ -9,8 +9,11 @@ import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.jian.shadow.repository.SysUserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -23,13 +26,24 @@ import io.jsonwebtoken.SignatureAlgorithm;
  *
  */
 public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFilter{
-	
-	
+
+	@Autowired
+	private SysUserRepository sysUserRepository;
 
 	public LoginAuthenticationFilter(AuthenticationManager authenticationManager) {
 		this.setAuthenticationManager(authenticationManager);
 	}
-	
+
+	@Override
+	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+		String fromType = request.getParameter("fromType");
+		if(null == fromType || fromType.length() == 0)fromType = "0";
+
+		//检查用户是否合法
+
+		return super.attemptAuthentication(request, response);
+	}
+
 	@SuppressWarnings("deprecation")
 	@Override
     protected void successfulAuthentication(HttpServletRequest request,

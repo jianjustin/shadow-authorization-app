@@ -34,10 +34,10 @@ public class UserModelDetailsService implements UserDetailsService {
         SysUser user = sysUserRepository.findByUsername(s);//查询系统用户
         if (null == user)throw new UsernameNotFoundException("用户账户【"+s+"】查询失败");
         
-        List<Integer> roleIds = sysUserRoleRepository.findByUserId(user.getUserId()).stream().map(SysUserRole::getRoleId).collect(Collectors.toList());
+        List<String> roleIds = sysUserRoleRepository.findByUserId(user.getUserId()).stream().map(SysUserRole::getRoleId).collect(Collectors.toList());
 		
         List<SysPermission> sysPermissions = sysPermissionRepository.findByRoleIdIn(roleIds);
-        List<Integer> resourceIds = sysPermissions.stream().map(SysPermission::getResourceId).collect(Collectors.toList());
+        List<String> resourceIds = sysPermissions.stream().map(SysPermission::getResourceId).collect(Collectors.toList());
         List<SysResource> sysReources = (List<SysResource>) sysResourceRepository.findAllById(resourceIds);
 
         return new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword(),sysReources.stream()

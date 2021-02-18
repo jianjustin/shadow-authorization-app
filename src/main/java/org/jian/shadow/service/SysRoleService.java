@@ -27,7 +27,7 @@ public class SysRoleService {
     	return sysRoleRepository.findAll(pageable);
     }
 
-    public SysRole findOne(int id){
+    public SysRole findOne(String id){
         return sysRoleRepository.findById(id).get();
     }
 
@@ -39,7 +39,7 @@ public class SysRoleService {
     	return sysRoleRepository.save(sysRole);
     }
 
-    public void delete(int id){
+    public void delete(String id){
     	sysRoleRepository.deleteById(id);
     }
 }

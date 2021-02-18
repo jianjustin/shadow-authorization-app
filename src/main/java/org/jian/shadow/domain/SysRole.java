@@ -21,9 +21,8 @@ public class SysRole{
      * 角色ID
      */
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "role_id")
-    private int roleId;
+    private String roleId;
     /*
      * 角色名称
      */
@@ -44,12 +43,12 @@ public class SysRole{
      */
 	@Column(name = "order_by")
     private int orderBy;
-	
-	
-	public int getRoleId() {
+
+	public String getRoleId() {
 		return roleId;
 	}
-	public void setRoleId(int roleId) {
+
+	public void setRoleId(String roleId) {
 		this.roleId = roleId;
 	}
 	public String getRoleName() {

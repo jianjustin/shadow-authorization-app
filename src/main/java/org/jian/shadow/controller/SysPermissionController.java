@@ -47,8 +47,8 @@ public class SysPermissionController {
     @GetMapping("/sys/permission/queryByRole/{id}")
     @PreAuthorize("hasAuthority('sys.permission.query')")
     @ShadowLog(description = "查询指定角色权限信息")
-    public List<SysPermission> queryByRole(@PathVariable("id") int id){
-    	List<Integer> ids = new ArrayList<>();
+    public List<SysPermission> queryByRole(@PathVariable("id") String id){
+    	List<String> ids = new ArrayList<>();
     	ids.add(id);
         return sysPermissionService.findAllByRole(ids);
     }
@@ -56,7 +56,7 @@ public class SysPermissionController {
     @GetMapping("/sys/permission/{id}")
     @PreAuthorize("hasAuthority('sys.permission.query')")
     @ShadowLog(description = "查询指定权限信息")
-    public SysPermission findOne(@PathVariable("id") int id){
+    public SysPermission findOne(@PathVariable("id") String id){
         return sysPermissionService.findOne(id);
     }
 
@@ -71,12 +71,12 @@ public class SysPermissionController {
     @PutMapping("/sys/permission/updatePermission/{id}")
     @PreAuthorize("hasAuthority('sys.permission.update')")
     @ShadowLog(description = "更新权限")
-    public void updatePermission(@PathVariable("id") int id,
+    public void updatePermission(@PathVariable("id") String id,
     		@RequestBody List<SysPermission> sysPermissions){
-    	List<Integer> ids = new ArrayList<>();
+    	List<String> ids = new ArrayList<>();
     	ids.add(id);
         List<SysPermission> oldSysPermissions = sysPermissionService.findAllByRole(ids);
-        Map<Integer, Boolean> map = new HashMap<>();
+        Map<String, Boolean> map = new HashMap<>();
         for (int i = 0; i < oldSysPermissions.size(); i++) 
         	map.put(oldSysPermissions.get(i).getResourceId(), true);
 		
@@ -93,7 +93,7 @@ public class SysPermissionController {
 		}
         sysPermissionService.saveAll(saveList);//新增权限
         if(!map.keySet().isEmpty()) {
-        	Iterator<Integer> iterator = map.keySet().iterator();
+        	Iterator<String> iterator = map.keySet().iterator();
         	while(iterator.hasNext()) 
         		sysPermissionService.delete(iterator.next());	
         }
@@ -109,7 +109,7 @@ public class SysPermissionController {
     @DeleteMapping("/sys/permission/{id}")
     @PreAuthorize("hasAuthority('sys.permission.delete')")
     @ShadowLog(description = "删除权限")
-    public void delete(@PathVariable("id") int id){
+    public void delete(@PathVariable("id") String id){
         sysPermissionService.delete(id);
     }
 }

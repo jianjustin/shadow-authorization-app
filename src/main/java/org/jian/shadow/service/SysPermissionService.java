@@ -21,7 +21,7 @@ public class SysPermissionService {
         return result;
     }
     
-    public List<SysPermission> findAllByRole(List<Integer> roleIds){
+    public List<SysPermission> findAllByRole(List<String> roleIds){
     	return (List<SysPermission>) sysPermissionRepository.findAllById(roleIds);
     }
     
@@ -29,7 +29,7 @@ public class SysPermissionService {
         return sysPermissionRepository.findAll(pageable).getContent();
     }
 
-    public SysPermission findOne(int id){
+    public SysPermission findOne(String id){
         return sysPermissionRepository.findById(id).get();
     }
 
@@ -45,7 +45,7 @@ public class SysPermissionService {
     	sysPermissionRepository.save(sysPermission);
     }
 
-    public void delete(int id){
+    public void delete(String id){
     	sysPermissionRepository.deleteById(id);
     }
 }

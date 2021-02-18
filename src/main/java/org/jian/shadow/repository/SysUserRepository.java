@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface SysUserRepository extends CrudRepository<SysUser, Integer>, PagingAndSortingRepository<SysUser, Integer>{
+public interface SysUserRepository extends CrudRepository<SysUser, String>, PagingAndSortingRepository<SysUser, String>{
 
 	public SysUser findByUsername(String username);
 	

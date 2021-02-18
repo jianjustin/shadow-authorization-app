@@ -52,7 +52,7 @@ public class SysRoleController {
     @GetMapping("/sys/role/{id}")
     @PreAuthorize("hasAuthority('sys.role.query')")
     @ShadowLog(description = "查询角色信息")
-    public ResponseEntityInfo<SysRole> findOne(@PathVariable("id") int id){
+    public ResponseEntityInfo<SysRole> findOne(@PathVariable("id") String id){
     	SysRole sysRole = sysRoleService.findOne(id);
     	ResponseEntityInfo<SysRole> res = new ResponseEntityInfo<SysRole>(HttpStatus.OK, sysRole, null, null, null, "角色查询成功");
         return res;
@@ -83,7 +83,7 @@ public class SysRoleController {
     @DeleteMapping("/sys/role/{id}")
     @PreAuthorize("hasAuthority('sys.role.delete')")
     @ShadowLog(description = "删除指定角色")
-    public ResponseEntityInfo<SysRole> delete(@PathVariable("id") int id){
+    public ResponseEntityInfo<SysRole> delete(@PathVariable("id") String id){
     	SysRole oldSysRole = sysRoleService.findOne(id);
     	sysRoleService.delete(id);
         ResponseEntityInfo<SysRole> res = new ResponseEntityInfo<SysRole>(HttpStatus.OK, oldSysRole, null, null, null, "角色删除成功");

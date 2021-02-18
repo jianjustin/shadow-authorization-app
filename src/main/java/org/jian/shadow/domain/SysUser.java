@@ -1,6 +1,7 @@
 package org.jian.shadow.domain;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,9 +22,8 @@ public class SysUser{
      * 用户ID
      */
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "user_id")
-    private int userId;
+    private String userId;
     /*
      * 用户登陆名
      */
@@ -59,11 +59,12 @@ public class SysUser{
      */
 	@Column(name = "order_by")
     private int orderBy;
-	
-	public int getUserId() {
+
+	public String getUserId() {
 		return userId;
 	}
-	public void setUserId(int userId) {
+
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 	public String getUsername() {

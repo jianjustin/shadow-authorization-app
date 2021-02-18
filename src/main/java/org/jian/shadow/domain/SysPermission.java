@@ -20,19 +20,18 @@ public class SysPermission{
      * 权限ID
      */
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "permission_id")
-    private int permissionId;
+    private String permissionId;
     /*
      * 资源ID
      */
 	@Column(name = "resource_id", insertable=false, updatable=false)
-    private int resourceId;
+    private String resourceId;
     /*
      * 角色ID
      */
 	@Column(name = "role_id", insertable=false, updatable=false)
-    private int roleId;
+    private String roleId;
     /*
      * 权限状态
      */
@@ -48,25 +47,31 @@ public class SysPermission{
      */
 	@Column(name = "order_by")
     private int orderBy;
-	
-	public int getPermissionId() {
+
+	public String getPermissionId() {
 		return permissionId;
 	}
-	public void setPermissionId(int permissionId) {
+
+	public void setPermissionId(String permissionId) {
 		this.permissionId = permissionId;
 	}
-	public int getResourceId() {
+
+	public String getResourceId() {
 		return resourceId;
 	}
-	public void setResourceId(int resourceId) {
+
+	public void setResourceId(String resourceId) {
 		this.resourceId = resourceId;
 	}
-	public int getRoleId() {
+
+	public String getRoleId() {
 		return roleId;
 	}
-	public void setRoleId(int roleId) {
+
+	public void setRoleId(String roleId) {
 		this.roleId = roleId;
 	}
+
 	public int getPermissionStatus() {
 		return permissionStatus;
 	}

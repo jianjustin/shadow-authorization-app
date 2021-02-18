@@ -6,7 +6,7 @@ import org.jian.shadow.domain.SysUserRole;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface SysUserRoleRepository extends CrudRepository<SysUserRole, Integer>, PagingAndSortingRepository<SysUserRole, Integer>{
+public interface SysUserRoleRepository extends CrudRepository<SysUserRole, String>, PagingAndSortingRepository<SysUserRole, String>{
 
-	public List<SysUserRole> findByUserId(int id);
+	public List<SysUserRole> findByUserId(String id);
 }

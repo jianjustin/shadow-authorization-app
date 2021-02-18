@@ -27,7 +27,7 @@ public class SysResourceService {
         return sysResourceRepository.findAll(pageable);
     }
 
-    public SysResource findOne(int id){
+    public SysResource findOne(String id){
         return sysResourceRepository.findById(id).get();
     }
 
@@ -39,7 +39,7 @@ public class SysResourceService {
     	return sysResourceRepository.save(sysResource);
     }
 
-    public void delete(int id){
+    public void delete(String id){
     	sysResourceRepository.deleteById(id);
     }
 }

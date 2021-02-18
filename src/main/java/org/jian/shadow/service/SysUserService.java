@@ -27,7 +27,7 @@ public class SysUserService {
         return sysUserRepository.findAllList(pageable);
     }
 
-    public SysUser findOne(int id){
+    public SysUser findOne(String id){
         return sysUserRepository.findById(id).get();
     }
     
@@ -43,7 +43,7 @@ public class SysUserService {
     	return sysUserRepository.save(sysUser);
     }
 
-    public void delete(int id){
+    public void delete(String id){
     	sysUserRepository.deleteById(id);
     }
 

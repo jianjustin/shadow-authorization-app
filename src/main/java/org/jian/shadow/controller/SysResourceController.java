@@ -52,7 +52,7 @@ public class SysResourceController {
     @GetMapping("/sys/resource/{id}")
     @PreAuthorize("hasAuthority('sys.resource.query')")
     @ShadowLog(description = "查询指定资源")
-    public ResponseEntityInfo<SysResource> findOne(@PathVariable("id") int id){
+    public ResponseEntityInfo<SysResource> findOne(@PathVariable("id") String id){
     	SysResource sysResource = sysResourceService.findOne(id);
     	ResponseEntityInfo<SysResource> res = new ResponseEntityInfo<SysResource>(HttpStatus.OK, sysResource, null, null, null, "资源查询成功");
         return res;
@@ -85,7 +85,7 @@ public class SysResourceController {
     @DeleteMapping("/sys/resource/{id}")
     @PreAuthorize("hasAuthority('sys.resource.delete')")
     @ShadowLog(description = "删除资源信息")
-    public ResponseEntityInfo<SysResource> delete(@PathVariable("id") int id){
+    public ResponseEntityInfo<SysResource> delete(@PathVariable("id") String id){
     	SysResource oldSysResource = sysResourceService.findOne(id);
         sysResourceService.delete(id);
         ResponseEntityInfo<SysResource> res = new ResponseEntityInfo<SysResource>(HttpStatus.OK, oldSysResource, null, null, null, "资源删除成功");

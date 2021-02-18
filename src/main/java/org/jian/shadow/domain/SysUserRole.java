@@ -19,36 +19,40 @@ public class SysUserRole{
      * 用户-角色关联ID
      */
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "user_role_id")
-    private int userRoleId;
+    private String userRoleId;
     /*
      * 用户ID
      */
 	@Column(name = "user_id", insertable=false, updatable=false)
-    private int userId;
+    private String userId;
     /*
      * 角色ID
      */
 	@Column(name = "role_id", insertable=false, updatable=false)
-    private int roleId;
-	
-	public int getUserRoleId() {
+    private String roleId;
+
+	public String getUserRoleId() {
 		return userRoleId;
 	}
-	public void setUserRoleId(int userRoleId) {
+
+	public void setUserRoleId(String userRoleId) {
 		this.userRoleId = userRoleId;
 	}
-	public int getUserId() {
+
+	public String getUserId() {
 		return userId;
 	}
-	public void setUserId(int userId) {
+
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public int getRoleId() {
+
+	public String getRoleId() {
 		return roleId;
 	}
-	public void setRoleId(int roleId) {
+
+	public void setRoleId(String roleId) {
 		this.roleId = roleId;
 	}
 }

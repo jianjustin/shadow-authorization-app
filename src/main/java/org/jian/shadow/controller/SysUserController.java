@@ -56,7 +56,7 @@ public class SysUserController {
     @GetMapping("/sys/user/{id}")
     @PreAuthorize("hasAuthority('sys.user.query')")
     @ShadowLog(description = "查询指定用户")
-    public ResponseEntityInfo<SysUser> findOne(@PathVariable("id") int id){
+    public ResponseEntityInfo<SysUser> findOne(@PathVariable("id") String id){
     	SysUser sysUser = sysUserService.findOne(id);
     	ResponseEntityInfo<SysUser> res = new ResponseEntityInfo<SysUser>(HttpStatus.OK, sysUser, null, null, null, "用户查询成功");
         return res;
@@ -84,7 +84,7 @@ public class SysUserController {
     @DeleteMapping("/sys/user/{id}")
     @PreAuthorize("hasAuthority('sys.user.delete')")
     @ShadowLog(description = "删除指定用户")
-    public ResponseEntityInfo<SysUser> delete(@PathVariable("id") int id){
+    public ResponseEntityInfo<SysUser> delete(@PathVariable("id") String id){
     	SysUser oldSysUser = sysUserService.findOne(id);
     	sysUserService.delete(id);
         ResponseEntityInfo<SysUser> res = new ResponseEntityInfo<SysUser>(HttpStatus.OK, oldSysUser, null, null, null, "用户删除成功");

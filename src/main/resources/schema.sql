@@ -72,3 +72,15 @@ CREATE TABLE `book` (
     `create_date` timestamp DEFAULT CURRENT_TIMESTAMP,
     `order_by` int
 );
+
+DROP TABLE IF EXISTS `chapter`;
+CREATE TABLE `chapter` (
+    `id` varchar(100) NOT NULL PRIMARY KEY,
+    `book_id` varchar(100) NOT NULL,
+    `name` varchar(1000),
+    `index` int,
+    `content` text,
+    `word_count` int,
+    `create_date` timestamp DEFAULT CURRENT_TIMESTAMP,
+    `order_by` int
+);

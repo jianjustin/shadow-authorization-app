@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>org.jian.shadow</groupId>
-	<artifactId>shadow-authorization-server</artifactId>
+	<artifactId>shadow-authorization-app</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>shadow-authorization-server</name>
 	<description>a authorization server based springboot ,springsecurity and oauth2.0</description>

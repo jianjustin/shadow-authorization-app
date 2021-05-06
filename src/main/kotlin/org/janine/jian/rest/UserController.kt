@@ -25,4 +25,18 @@ class UserController(private val repository: UserRepository) {
     fun save(@RequestBody user: User): User{
         return repository.save(user);
     }
+
+    @PutMapping("/")
+    fun update(@RequestBody user: User): User{
+        return repository.save(user);
+    }
+
+    @DeleteMapping("/")
+    fun delete(@PathVariable id: UUID): User{
+        var user = repository.findById(id);
+        if(user.isPresent()) {
+            repository.delete(user.get());
+        }
+        return user?.get();
+    }
 }
